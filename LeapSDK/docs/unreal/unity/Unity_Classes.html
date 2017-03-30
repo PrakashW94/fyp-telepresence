@@ -1,0 +1,486 @@
+
+
+
+  
+  
+ 
+  
+  
+ 
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Leap.Unity Namespace &mdash; Leap Motion Unreal SDK v3.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../cpp/_static/bootstrap-3.0.0/css/documentation-bundle.1441141599.css" type="text/css" />
+    
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+      <script type="text/javascript" src="../../cpp/_static/bootstrap-3.0.0/js/documentation-bundle.1441141599.js"></script>
+    <link rel="top" title="Leap Motion Unreal SDK v3.1 documentation" href="../index.html" />
+<script type="text/javascript" src="/assets/standalone-header.js?r9"></script>
+<link rel="stylesheet" href="/assets/standalone-header.css?r9" type="text/css" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31536531-1']);
+  _gaq.push(['_setDomainName', 'leapmotion.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+ 
+
+<script>
+
+    function getQueryValue(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+        var relPath = "../../";
+
+    var requestedAPI = getQueryValue("proglang");
+    if(requestedAPI == "current") requestedAPI = localStorage["currentAPI"];
+    var pageAPI = 'unreal';
+    var hasAPI = {};
+    hasAPI.unity = true;
+
+    if(requestedAPI && (requestedAPI != pageAPI))
+    {
+        if(pageAPI != 'none'){
+            var redirectedLocation = relPath + 'unreal/unity/Unity_Classes.html';
+            if( requestedAPI == 'cpp' && hasAPI.cpp){
+                redirectedLocation = relPath + "cpp/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'csharp' && hasAPI.csharp){
+                redirectedLocation = relPath + "csharp/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'unity' && hasAPI.unity){
+                redirectedLocation = relPath + "unity/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'objc' && hasAPI.objc){
+                redirectedLocation = relPath + "objc/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'java' && hasAPI.java) {
+                redirectedLocation = relPath + "java/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'javascript' && hasAPI.javascript){
+                redirectedLocation = relPath + "javascript/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'python' && hasAPI.python){
+                redirectedLocation = relPath + "python/unity/Unity_Classes.html";
+            }
+            else if( requestedAPI == 'unreal' && hasAPI.unreal) {
+                redirectedLocation = relPath + "unreal/unity/Unity_Classes.html";
+            } else {
+
+                    if( requestedAPI == 'cpp'){
+                        redirectedLocation = relPath + "cpp/index.html?proglang=cpp";
+                    }
+                    else if( requestedAPI == 'csharp'){
+                        redirectedLocation = relPath + "csharp/index.html?proglang=csharp";
+                    }
+                    else if( requestedAPI == 'unity'){
+                        redirectedLocation = relPath + "unity/index.html?proglang=unity";
+                    }
+                    else if( requestedAPI == 'objc'){
+                        redirectedLocation = relPath + "objc/index.html?proglang=objc";
+                    }
+                    else if( requestedAPI == 'java') {
+                        redirectedLocation = relPath + "java/index.html?proglang=java";
+                    }
+                    else if( requestedAPI == 'javascript'){
+                        redirectedLocation = relPath + "javascript/index.html?proglang=javascript";
+                    }
+                    else if( requestedAPI == 'python'){
+                        redirectedLocation = relPath + "python/index.html?proglang=python";
+                    }
+                    else if( requestedAPI == 'unreal') {
+                        redirectedLocation = relPath + "unreal/index.html?proglang=unreal";
+                    } else {
+                        redirectedLocation = relPath + "index.html";
+                    }
+            }
+
+            //Guard against redirecting to the same page (infinitely)
+            if(relPath + 'unreal/unity/Unity_Classes.html' != redirectedLocation) window.location.replace(redirectedLocation);
+        }
+    }
+
+</script>
+
+<script>
+window.addEventListener('keyup', handleKeyInput);
+function handleKeyInput(e)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    if( character == "J" & e.altKey){    }
+    else if( character == "K" & e.altKey){
+    }
+
+}
+</script>
+
+
+  </head>
+  <body role="document">
+
+<div class="developer-portal-styles">
+  <header class="navbar navbar-static-top developer-navbar header beta-header">
+    <nav class="container pr">
+      <a class="logo-link pull-left" href="/">
+        <img alt="Leap Motion Developers" class="media-object pull-left white-background" src="../_static/logo.png" />
+      </a>
+      <span class="inline-block hidden-phone developer-logo-text">
+        <div class="text">
+          <a href="/">
+            <span class="more-than-1199">Developer Portal</span>
+
+          </a>
+        </div>
+      </span>
+
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!-- Everything within here will be hidden at 940px or less, accessible via a button. -->
+      <div class="nav-collapse">
+        <ul class="nav header-navigation developer-links">
+          <li class="external-link"><a href="https://developer.leapmotion.com/features">What's new</a> </li>
+          <li class="external-link"><a href="https://developer.leapmotion.com/downloads/skeletal-beta" class="">Getting Started</a></li>
+          <li><a class="active" href="#" class="">Documentation</a></li>
+          <li class="external-link"> <a href="https://developer.leapmotion.com/gallery" class="">Examples</a> </li>
+          <li class="external-link"> <a href="https://www.leapmotion.com/blog/category/labs/" class="" target="_blank">Blog <i class='fa fa-external-link'></i></a> </li>
+          <li class="external-link"> <a href="https://community.leapmotion.com/category/beta" class="" target="_blank">Community <i class='fa fa-external-link'></i></a> </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+</div>
+<section class="main-wrap">
+  <div data-swiftype-index="true">
+    <div class="second_navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+              
+
+<ul>
+  <li>
+      <a href="../../javascript/index.html?proglang=javascript" onclick="localStorage['currentAPI'] = 'javascript'">JavaScript</a>
+    
+  </li>
+  <li>
+      <a href="../../unity/unity/Unity_Classes.html?proglang=unity" onclick="localStorage['currentAPI'] = 'unity'">Unity</a>
+    
+  </li>
+  <li>
+      <a href="../../csharp/index.html?proglang=csharp" onclick="localStorage['currentAPI'] = 'csharp'">C#</a>
+    
+  </li>
+  <li>
+      <a href="../../cpp/index.html?proglang=cpp" onclick="localStorage['currentAPI'] = 'cpp'">C++</a>
+    
+  </li>
+  <li>
+      <a href="../../java/index.html?proglang=java" onclick="localStorage['currentAPI'] = 'java'">Java</a>
+    
+  </li>
+  <li>
+      <a href="../../python/index.html?proglang=python" onclick="localStorage['currentAPI'] = 'python'">Python</a>
+    
+  </li>
+  <li>
+      <a href="../../objc/index.html?proglang=objc" onclick="localStorage['currentAPI'] = 'objc'">Objective-C</a>
+    
+  </li>
+  <li>
+      Unreal
+    
+  </li>
+</ul>
+            
+          </div>
+          <div class="col-md-4 search">
+            
+              <script>
+function storeThisPage(){
+    sessionStorage["pageBeforeSearch"] = window.location;
+    return true;
+}
+function doneWithSearch(){
+    var storedPage = sessionStorage["pageBeforeSearch"];
+    if(storedPage){
+        window.location = storedPage;
+    } else {
+        window.location = "index.html"; //fallback
+    }
+    return false;
+}
+</script>
+<div  style="margin-top:-4px">
+<ul style="display:inline; white-space:nowrap"><li>
+<form class="navbar-form" action="../search.html" method="get" onsubmit="storeThisPage()">
+ <div class="form-group">
+  <input type="search" results="5" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form></li>
+</ul>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        //Remove dev portal header and footer when viewing from file system
+       if(window.location.protocol == 'file:'){
+            var navNode = document.querySelector(".developer-links");
+            navNode.parentNode.removeChild(navNode);
+        }
+
+    </script>
+
+
+<div id="wrap" data-spy="scroll" data-target="#sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 pull-right">
+        <!-- 
+ 
+<span id="breadcrumbs">
+  <a href="../index.html">Home</a>&raquo;
+  Leap.Unity Namespace
+</span> -->
+        
+  <div class="section" id="leap-unity-namespace">
+<h1>Leap.Unity Namespace<a class="headerlink" href="#leap-unity-namespace" title="Permalink to this headline">¶</a></h1>
+<p>The Leap Motion core assets include scripts defining the following C# classes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Core Classes</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.LeapHandController.html"><em>LeapHandController</em></a></td>
+<td>The central class that takes tracking data and drives the hands in a scene.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.LeapProvider.html"><em>LeapProvider</em></a></td>
+<td>An Abstract class that defines the functions necessary to provide frames of tracking data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.LeapServiceProvider.html"><em>LeapServiceProvider</em></a></td>
+<td>Implements <a href="#id508"><span class="problematic" id="id509">|LeapProvider|_</span></a> to provide tracking data from the Leap Motion service.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.LeapImageRetriever.html"><em>LeapImageRetriever</em></a></td>
+<td>Converts images from the Leap Motion cameras into Unity textures.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.HandFactory.html"><em>HandFactory</em></a></td>
+<td>An abstract class that defines the functions necessary to represent hands.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.HandPool.html"><em>HandPool</em></a></td>
+<td>Implements <a href="#id478"><span class="problematic" id="id479">|HandFactory|</span></a> to build <a href="#id510"><span class="problematic" id="id511">|HandRepresentation|_</span></a> objects from the models in its model collection and tracked hands.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.HandRepresentation.html"><em>HandRepresentation</em></a></td>
+<td>An abstract class that defines the properties of a hand in the scene.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.HandProxy.html"><em>HandProxy</em></a></td>
+<td>Implements <a href="#id482"><span class="problematic" id="id483">|HandRepresentation|</span></a> to combine a Leap <a class="reference external" href="../api/Leap.Hand.html"><tt class="docutils literal"><span class="pre">Hand</span></tt></a> object with a set of physics or graphics models.</td>
+</tr>
+<tr class="row-even"><td>Hand Models</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.IHandModel.html"><em>IHandModel</em></a></td>
+<td>Defines the interface used to access hand model objects by the rest of the system. Implement this interface to create entirely different types of hands.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.HandModel.html"><em>HandModel</em></a></td>
+<td>The base class for most of the hands in the asset packages. Works with the <a href="#id512"><span class="problematic" id="id513">|FingerModel|_</span></a> base class.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.DebugHand.html"><em>DebugHand</em></a></td>
+<td>A utility graphics hand model that draws lines for the bones of a hand. Uses the Unity Debug.DrawLine() function. These hands are only visible in the scene view.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.RiggedHand.html"><em>RiggedHand</em></a></td>
+<td>A graphics hand class that sets the rotations and, optionally, the positions of the rigged bones in a mesh model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.RigidHand.html"><em>RigidHand (Physics)</em></a></td>
+<td>A physics hand class that moves the rigidbodies and colliders to match the tracked hand in a manner appropriate for the Unity physics engine.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.SkeletalHand.html"><em>SkeletalHand</em></a></td>
+<td>A graphics hand class that moves the transforms attached to game objects representing each part of the hand.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.CapsuleHand.html"><em>CapsuleHand</em></a></td>
+<td>A grahics hand class that draws a stylized representation of a hand.</td>
+</tr>
+<tr class="row-even"><td>Hand Behaviors</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.HandTransitionBehavior.html"><em>HandTransitionBehavior</em></a></td>
+<td>An abstract base class defining the functions called when tracking for a hand is initiated or lost.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.HandDrop.html"><em>HandDrop</em></a></td>
+<td>A transition behavior that interpolates a hand to and from its starting position in the scene when a hand transition occurs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.HandEnableDisable.html"><em>HandEnableDisable</em></a></td>
+<td>A behavior that activates or deactivates the hand object when a hand transition occurs.</td>
+</tr>
+<tr class="row-even"><td>Finger Models</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.FingerModel.html"><em>FingerModel</em></a></td>
+<td>The base class for most finger models in the assets. Works with the <a href="#id514"><span class="problematic" id="id515">|HandModel|_</span></a> class.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.RiggedFinger.html"><em>RiggedFinger</em></a></td>
+<td>Extends <a href="#id516"><span class="problematic" id="id517">|SkeletalFinger|_</span></a> to drive the bones in an animated mesh with the bone data in the tracked finger.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.RigidFinger.html"><em>RigidFinger (Physics)</em></a></td>
+<td>Extends <a href="#id490"><span class="problematic" id="id491">|SkeletalFinger|</span></a> to move the rigidbodies and colliders in a physics hand.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.SkeletalFinger.html"><em>SkeletalFinger</em></a></td>
+<td>Extends <a href="#id518"><span class="problematic" id="id519">|FingerModel|_</span></a> to move game object transforms according to the bones in the tracked finger.</td>
+</tr>
+<tr class="row-odd"><td>Detector Scripts</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><a href="#id520"><span class="problematic" id="id521">|PinchDetector|_</span></a></td>
+<td>Detects when a hand is pinching. (Formerly LeapPinchDetector)</td>
+</tr>
+<tr class="row-odd"><td><a href="#id522"><span class="problematic" id="id523">|ExtendedFingerDetector|_</span></a></td>
+<td>Detects when the fingers of a hand match a specified pattern of being extended or not extended.</td>
+</tr>
+<tr class="row-even"><td><a href="#id524"><span class="problematic" id="id525">|FingerDirectionDetector|_</span></a></td>
+<td>Detects when a specified finger is pointing in a specified direction.</td>
+</tr>
+<tr class="row-odd"><td><a href="#id526"><span class="problematic" id="id527">|PalmDirectionDetector|_</span></a></td>
+<td>Detects when the palm of a hand is facing in the specified direction.</td>
+</tr>
+<tr class="row-even"><td><a href="#id528"><span class="problematic" id="id529">|ProximityDetector|_</span></a></td>
+<td>Detects when a hand or finger is within aa specified distance from game objects in a target list.</td>
+</tr>
+<tr class="row-odd"><td><a href="#id530"><span class="problematic" id="id531">|DetectorLogicGate|_</span></a></td>
+<td>Combines other detectors to create a more complex condition. For example, detecting when the thumb is extended AND pointing up.</td>
+</tr>
+<tr class="row-even"><td>Utility Scripts</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.LeapDeviceInfo.html"><em>LeapDeviceInfo</em></a></td>
+<td>A struct that describes the attibutes of a Leap Motion hardware device.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.DisconnectionNotice.html"><em>DisconnectionNotice</em></a></td>
+<td>Fades an image in and out of view when a connection to the Leap Motion service cannot be established or is lost.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.FrameRateControls.html"><em>FrameRateControls</em></a></td>
+<td>Adjusts the Unity frame rate via the keyboard for testing.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.LeapUnityExtensions.html"><em>LeapUnityExtensions</em></a></td>
+<td>Provides extensions for converting between related Leap Motion and Unity classes.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.HandFader.html"><em>HandFader</em></a></td>
+<td>Fades a hand based on its confidence value.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.TestHandFactory.html"><em>TestHandFactory</em></a></td>
+<td>Creates a &#8220;dummy&#8221; frame containing a right and a left hand.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.Utils.html"><em>Utils</em></a></td>
+<td>A place for utility functions. Currently contains <a href="#id532"><span class="problematic" id="id533">|Utils.IgnoreCollisions|_</span></a>.</td>
+</tr>
+<tr class="row-even"><td>VR Scripts</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.EyeType.html"><em>EyeType</em></a></td>
+<td>Classifies which eye the Unity camera is rendering.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Unity.LeapVRCameraControl.html"><em>LeapVRCameraControl</em></a></td>
+<td>Manages camera and rendering shader parameters.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Unity.LeapVRTemporalWarping.html"><em>LeapVRTemporalWarping</em></a></td>
+<td>Interpolates shader transform paramter to synchronize the tracking data with the camera images.</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           <!-- get_disqus_sso -->
+      </div>
+      <div id="sidebar" class="col-md-3">
+        <div class="well-sidebar" data-offset-top="188">
+          <ul>
+            <li><a href="../index.html" title="Home">Unreal Docs (v3.1)</a></li>
+          </ul><ul>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_Using_Plugin.html">Using the Leap Motion Unreal Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_CollisionsDemo.html">Tutorial: The Collisions Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_BP_CustomControllerDemo.html">Tutorial: The Custom Controller Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_Cpp_Tutorial.html">Tutorial: Using the Leap Motion API in Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_BluePrints.html">Blueprint Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../unreal/Leap_Unreal_Classes.html">C++ Class Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/Leap_Guides.html">Application Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplements/Leap_Supplements.html">Appendices</a></li>
+</ul>
+
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</div>
+<!--
+
+
+<footer>
+  <div id="footer" class="container">
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright &copy; 2012 - 2016, Leap Motion, Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>
