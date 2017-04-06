@@ -5,9 +5,10 @@ sys.path.insert(0, "LeapSDK/lib/x86")
 
 import Leap
 
+controller = Leap.Controller()
+
 
 def connect():
-    controller = Leap.Controller();
     if not controller.is_connected:
         print "waiting for connection..."
     else:
@@ -18,7 +19,6 @@ def connect():
 
 
 def get_roll():
-    controller = Leap.Controller()
     frame = controller.frame()
     while frame.id < 0:
         frame = controller.frame()
@@ -27,7 +27,6 @@ def get_roll():
 
 
 def get_pitch():
-    controller = Leap.Controller()
     frame = controller.frame()
     while frame.id < 0:
         frame = controller.frame()
@@ -36,7 +35,6 @@ def get_pitch():
 
 
 def get_yaw():
-    controller = Leap.Controller()
     frame = controller.frame()
     while frame.id < 0:
         frame = controller.frame()
@@ -44,8 +42,16 @@ def get_yaw():
     return hand.direction.yaw
 
 
+def get_height():
+    frame = controller.frame()
+    while frame.id < 0:
+        frame = controller.frame()
+    hand = frame.hands[0]
+    height = hand.palm_position[1]
+    return height
+
+
 def count_hands():
-    controller = Leap.Controller()
     frame = controller.frame()
     while frame.id < 0:
         frame = controller.frame()
