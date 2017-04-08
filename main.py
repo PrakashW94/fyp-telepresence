@@ -11,15 +11,20 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
         super(StatusWindow, self).__init__(parent)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setupUi(self)
+        self.sldr_volume.sliderReleased.connect(self.sldr_volume_changed)
+
+    def sldr_volume_changed(self):
+        value = self.sldr_volume.value()
+        print "Slider changed to " + str(value)
 
 
 class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.btn_status.clicked.connect(self.open_status_window)
+        self.btn_status.clicked.connect(self.btn_status_click)
 
-    def open_status_window(self):
+    def btn_status_click(self):
         status_window = StatusWindow(self)
         status_window.show()
         commandModule.update_status_window(status_window, app)

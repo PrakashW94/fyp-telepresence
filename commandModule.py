@@ -199,4 +199,4 @@ def update_status_window(window, app):
         else:
             window.edit_leap_bandwidth.setStyleSheet("background-color:red")
         app.processEvents()
-        time.sleep(0.5)
+        # time.sleep(0.5)
