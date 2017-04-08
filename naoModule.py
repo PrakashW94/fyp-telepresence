@@ -1,7 +1,7 @@
 from naoqi import ALProxy
 
-# naoIP = "169.254.108.110"  # wired
-naoIP = "158.125.103.28"
+naoIP = "169.254.108.110"  # wired
+# naoIP = "158.125.103.28"  # wireless
 naoPort = 9559
 
 
@@ -41,3 +41,27 @@ def move_head_pitch(angle):
     motion = ALProxy("ALMotion", naoIP, naoPort)
     motion.changeAngles("HeadPitch", angle, 0.05)
 
+
+def get_connection_status():
+    try:
+        system = ALProxy("ALSystem", naoIP, naoPort)
+        return True
+    except Exception, e:
+        print "Could not create proxy."
+        print "Error :", e
+    return False
+
+
+def get_battery():
+    battery = ALProxy("ALBattery", naoIP, naoPort)
+    return battery.getBatteryCharge()
+
+
+def get_volume():
+    audio = ALProxy("ALAudioDevice", naoIP, naoPort)
+    return audio.getOutputVolume()
+
+
+def set_volume(value):
+    audio = ALProxy("ALAudioDevice", naoIP, naoPort)
+    audio.setOutputVolume(value)

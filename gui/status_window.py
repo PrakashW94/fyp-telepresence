@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'status_window.ui'
 #
-# Created: Sat Apr 08 13:17:24 2017
+# Created: Sat Apr 08 16:49:21 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -104,15 +104,15 @@ class Ui_status_window(object):
         font.setPointSize(10)
         self.lbl_connected.setFont(font)
         self.lbl_connected.setObjectName(_fromUtf8("lbl_connected"))
-        self.editNaoConnected = QtGui.QLineEdit(self.group_nao)
-        self.editNaoConnected.setGeometry(QtCore.QRect(80, 30, 111, 20))
+        self.edit_nao_connection = QtGui.QLineEdit(self.group_nao)
+        self.edit_nao_connection.setGeometry(QtCore.QRect(80, 30, 111, 20))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.editNaoConnected.setFont(font)
-        self.editNaoConnected.setStyleSheet(_fromUtf8("background-color:red"))
-        self.editNaoConnected.setAlignment(QtCore.Qt.AlignCenter)
-        self.editNaoConnected.setReadOnly(True)
-        self.editNaoConnected.setObjectName(_fromUtf8("editNaoConnected"))
+        self.edit_nao_connection.setFont(font)
+        self.edit_nao_connection.setStyleSheet(_fromUtf8("background-color:red"))
+        self.edit_nao_connection.setAlignment(QtCore.Qt.AlignCenter)
+        self.edit_nao_connection.setReadOnly(True)
+        self.edit_nao_connection.setObjectName(_fromUtf8("edit_nao_connection"))
         self.lbl_battery = QtGui.QLabel(self.group_nao)
         self.lbl_battery.setGeometry(QtCore.QRect(10, 60, 61, 21))
         font = QtGui.QFont()
@@ -149,7 +149,7 @@ class Ui_status_window(object):
         self.lbl_bandwidth.setText(_translate("status_window", "Bandwidth: ", None))
         self.group_nao.setTitle(_translate("status_window", "Nao Robot", None))
         self.lbl_connected.setText(_translate("status_window", "Connected: ", None))
-        self.editNaoConnected.setText(_translate("status_window", "NOT CONNECTED", None))
+        self.edit_nao_connection.setText(_translate("status_window", "NOT CONNECTED", None))
         self.lbl_battery.setText(_translate("status_window", "Battery: ", None))
         self.lbl_volume.setText(_translate("status_window", "Volume", None))
 

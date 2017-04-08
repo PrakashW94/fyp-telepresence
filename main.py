@@ -15,7 +15,7 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
 
     def sldr_volume_changed(self):
         value = self.sldr_volume.value()
-        print "Slider changed to " + str(value)
+        commandModule.nao_set_volume(value)
 
 
 class MainWindow(QtGui.QMainWindow, Ui_main_window):

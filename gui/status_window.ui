@@ -240,7 +240,7 @@
      <string>Connected: </string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="editNaoConnected">
+   <widget class="QLineEdit" name="edit_nao_connection">
     <property name="geometry">
      <rect>
       <x>80</x>

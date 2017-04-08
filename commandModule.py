@@ -1,8 +1,6 @@
 import naoModule
 import leapModule
 import time
-import sys
-from PyQt4 import QtCore, QtGui, uic
 
 leapModule.connect()
 
@@ -172,22 +170,37 @@ def test_func2(window, app):
 
 
 def update_status_window(window, app):
-    service_status = leapModule.get_service_status()
-    tracking_status = leapModule.get_tracking_status()
+    leap_service_status = leapModule.get_service_status()
+    leap_tracking_status = leapModule.get_tracking_status()
 
-    if service_status:
+    if leap_service_status:
         window.edit_leap_service.setText("CONNECTED")
         window.edit_leap_service.setStyleSheet("background-color:green")
     else:
         window.edit_leap_service.setText("NOT CONNECTED")
         window.edit_leap_service.setStyleSheet("background-color:red")
 
-    if tracking_status:
+    if leap_tracking_status:
         window.edit_leap_tracking.setText("CONNECTED")
         window.edit_leap_tracking.setStyleSheet("background-color:green")
     else:
         window.edit_leap_tracking.setText("NOT CONNECTED")
         window.edit_leap_tracking.setStyleSheet("background-color:red")
+
+    nao_connection_status = naoModule.get_connection_status()
+
+    if nao_connection_status:
+        window.edit_nao_connection.setText("CONNECTED")
+        window.edit_nao_connection.setStyleSheet("background-color:green")
+        nao_battery = naoModule.get_battery()
+        nao_volume = naoModule.get_volume()
+        window.pbar_battery.setValue(nao_battery)
+        window.sldr_volume.setValue(nao_volume)
+    else:
+        window.edit_nao_connection.setText("NOT CONNECTED")
+        window.edit_nao_connection.setStyleSheet("background-color:red")
+        window.pbar_battery.setValue(0)
+        window.sldr_volume.setValue(0)
 
     while window.isVisible():
         bandwidth_status = leapModule.get_bandwidth_status()
@@ -200,3 +213,8 @@ def update_status_window(window, app):
             window.edit_leap_bandwidth.setStyleSheet("background-color:red")
         app.processEvents()
         # time.sleep(0.5)
+
+
+def nao_set_volume(value):
+    naoModule.set_volume(value)
+    naoModule.say_phrase("My volume is now " + str(value))
