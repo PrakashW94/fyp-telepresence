@@ -40,3 +40,4 @@ def move_head_yaw(angle):
 def move_head_pitch(angle):
     motion = ALProxy("ALMotion", naoIP, naoPort)
     motion.changeAngles("HeadPitch", angle, 0.05)
+

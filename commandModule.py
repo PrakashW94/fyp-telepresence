@@ -1,5 +1,8 @@
 import naoModule
 import leapModule
+import time
+import sys
+from PyQt4 import QtCore, QtGui, uic
 
 leapModule.connect()
 
@@ -133,16 +136,67 @@ def test_func():
     while hands == 1:
         height = leapModule.get_height()
         scaled_height = scale(height, 100, 400, 50, 90)
-        # print "raw: " + str(height) + ", scaled: " + str(scaled_height)
-
         pitch = leapModule.get_pitch()
         scaled_pitch1 = scale(pitch, -20, 90, 0, scaled_height)
-        print "raw: " + str(pitch) \
+        output_str = "raw: " + str(pitch) \
               + ", scaled: " + str(scaled_pitch1) \
               + ", height: " + str(scaled_height)
 
+        print output_str
         hands = leapModule.count_hands()
 
     print "Test function complete!"
 
 
+def test_func2(window, app):
+    hands = 0
+    while hands == 0:
+        hands = leapModule.count_hands()
+
+    while hands == 1:
+        height = leapModule.get_height()
+        scaled_height = scale(height, 100, 400, 50, 90)
+        pitch = leapModule.get_pitch()
+        scaled_pitch1 = scale(pitch, -20, 90, 0, scaled_height)
+        output_str = "raw: " + str(pitch) \
+                     + ", scaled: " + str(scaled_pitch1) \
+                     + ", height: " + str(scaled_height)
+
+        print output_str
+        window.label.setText(output_str)
+        window.horizontalSlider.setValue(scaled_height)
+        app.processEvents()
+        hands = leapModule.count_hands()
+
+    print "Test function complete!"
+
+
+def update_status_window(window, app):
+    service_status = leapModule.get_service_status()
+    tracking_status = leapModule.get_tracking_status()
+
+    if service_status:
+        window.edit_leap_service.setText("CONNECTED")
+        window.edit_leap_service.setStyleSheet("background-color:green")
+    else:
+        window.edit_leap_service.setText("NOT CONNECTED")
+        window.edit_leap_service.setStyleSheet("background-color:red")
+
+    if tracking_status:
+        window.edit_leap_tracking.setText("CONNECTED")
+        window.edit_leap_tracking.setStyleSheet("background-color:green")
+    else:
+        window.edit_leap_tracking.setText("NOT CONNECTED")
+        window.edit_leap_tracking.setStyleSheet("background-color:red")
+
+    while window.isVisible():
+        bandwidth_status = leapModule.get_bandwidth_status()
+        window.edit_leap_bandwidth.setText(str(bandwidth_status))
+        if bandwidth_status > 100:
+            window.edit_leap_bandwidth.setStyleSheet("background-color:green")
+        elif 60 < bandwidth_status < 100:
+            window.edit_leap_bandwidth.setStyleSheet("background-color:orange")
+        else:
+            window.edit_leap_bandwidth.setStyleSheet("background-color:red")
+        app.processEvents()
+        time.sleep(0.5)

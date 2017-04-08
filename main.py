@@ -1,5 +1,37 @@
 import commandModule
 
+import sys
+from PyQt4 import QtGui, QtCore
+from gui.main_window import Ui_main_window
+from gui.status_window import Ui_status_window
+
+
+class StatusWindow(QtGui.QMainWindow, Ui_status_window):
+    def __init__(self, parent=None):
+        super(StatusWindow, self).__init__(parent)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.setupUi(self)
+
+
+class MainWindow(QtGui.QMainWindow, Ui_main_window):
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+        self.setupUi(self)
+        self.btn_status.clicked.connect(self.open_status_window)
+
+    def open_status_window(self):
+        status_window = StatusWindow(self)
+        status_window.show()
+        commandModule.update_status_window(status_window, app)
+
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
+
+"""
 commands = ["1 - Head movement with Yaw (LR)", "2 - Head movement with Pitch (UD)", "3 - Walk linear", "4 - Walk rotate", "5 - Reset Pose"]
 while 1:
     print "Menu"
@@ -24,3 +56,4 @@ while 1:
         commandModule.test_func()
     else:
         print "Command not recognised"
+"""

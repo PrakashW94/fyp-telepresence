@@ -59,3 +59,17 @@ def count_hands():
         return 0
     else:
         return 1
+
+
+def get_service_status():
+    return controller.is_connected
+
+
+def get_tracking_status():
+    device = controller.devices[0]
+    return device.is_streaming
+
+
+def get_bandwidth_status():
+    frame = controller.frame()
+    return frame.current_frames_per_second
