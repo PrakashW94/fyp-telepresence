@@ -4,6 +4,7 @@ import sys
 from PyQt4 import QtGui, QtCore
 from gui.main_window import Ui_main_window
 from gui.status_window import Ui_status_window
+from gui.movement_window import Ui_movement_window
 
 
 class StatusWindow(QtGui.QMainWindow, Ui_status_window):
@@ -18,16 +19,30 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
         commandModule.nao_set_volume(value)
 
 
+class MovementWindow(QtGui.QMainWindow, Ui_movement_window):
+    def __init__(self, parent=None):
+        super(MovementWindow, self).__init__(parent)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.setupUi(self)
+
+
 class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.btn_status.clicked.connect(self.btn_status_click)
+        self.btn_nao_head.clicked.connect(self.btn_head_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
         status_window.show()
         commandModule.update_status_window(status_window, app)
+
+    def btn_head_click(self):
+        movement_window = MovementWindow(self)
+        movement_window.show()
+        commandModule.nao_rotate_head(movement_window, app)
+        movement_window.close()
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ sys.path.insert(0, "LeapSDK/lib/x86")
 import Leap
 
 controller = Leap.Controller()
+last_frame = 0
 
 
 def connect():
@@ -22,6 +23,7 @@ def get_roll():
     frame = controller.frame()
     while frame.id < 0:
         frame = controller.frame()
+
     hand = frame.hands[0]
     return int(hand.palm_normal.roll * Leap.RAD_TO_DEG)
 
@@ -40,6 +42,16 @@ def get_yaw():
         frame = controller.frame()
     hand = frame.hands[0]
     return hand.direction.yaw
+
+
+def get_pitch_yaw():
+    frame = controller.frame()
+    while frame.id < 0:
+        frame = controller.frame()
+    hand = frame.hands[0]
+    pitch = int(hand.direction.pitch * Leap.RAD_TO_DEG)
+    yaw = int(hand.direction.yaw * Leap.RAD_TO_DEG)
+    return [pitch, yaw]
 
 
 def get_height():
@@ -73,3 +85,8 @@ def get_tracking_status():
 def get_bandwidth_status():
     frame = controller.frame()
     return frame.current_frames_per_second
+
+
+def get_extended_fingers():
+    frame = controller.frame()
+    return len(frame.pointables.extended())

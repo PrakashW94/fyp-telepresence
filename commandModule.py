@@ -218,3 +218,51 @@ def update_status_window(window, app):
 def nao_set_volume(value):
     naoModule.set_volume(value)
     naoModule.say_phrase("My volume is now " + str(value))
+
+
+def nao_rotate_head(window, app):
+    hands = 0
+
+    while hands == 0:
+        hands = leapModule.count_hands()
+
+    # naoModule.say_phrase("My head is now under your control!")
+    extended_fingers = leapModule.get_extended_fingers()
+    close_counter = 0
+    while close_counter < 300:
+        if extended_fingers == 0:
+            close_counter += 1
+        else:
+            height = leapModule.get_height()
+            scaled_height = scale(height, 100, 400, 50, 90)
+
+            angles = leapModule.get_pitch_yaw()
+            # scale angles according to height for sensitivity
+            scaled_angles = \
+                [
+                    scale(angles[0], -70, 70, -scaled_height, scaled_height),
+                    scale(angles[1], -70, 70, -scaled_height, scaled_height)
+                ]
+            # scale angles according to nao head limits
+            scaled_angles = \
+                [
+                    scale(scaled_angles[0], -scaled_height, scaled_height, -39, 30),
+                    scale(scaled_angles[1], -scaled_height, scaled_height, -120, 120)
+                ]
+
+            output_yaw = scale(scaled_angles[0], -39, 30, 0, 99)
+            output_pitch = scale(scaled_angles[1], -120, 120, 0, 99)
+            window.sldr_pitch.setValue(output_pitch)
+            window.sldr_yaw.setValue(output_yaw)
+
+            output_height = scale(height, 100, 400, 0, 99)
+            window.sldr_height.setValue(output_height)
+
+            app.processEvents()
+
+            print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
+            # rad_scaled_angles = [scaled_angles[0] * -0.0174533, scaled_angles[1] * 0.0174533]
+            # naoModule.rotate_head(rad_scaled_angles)
+        extended_fingers = leapModule.get_extended_fingers()
+
+

@@ -65,3 +65,11 @@ def get_volume():
 def set_volume(value):
     audio = ALProxy("ALAudioDevice", naoIP, naoPort)
     audio.setOutputVolume(value)
+
+
+def rotate_head(angles):
+    motion = ALProxy("ALMotion", naoIP, naoPort)
+    joints = ["HeadPitch", "HeadYaw"]
+    # angles = [0.2, -0.2]
+    fraction_max_speed = 0.1
+    motion.setAngles(joints, angles, fraction_max_speed)
