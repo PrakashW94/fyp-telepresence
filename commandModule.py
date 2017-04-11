@@ -234,33 +234,34 @@ def nao_rotate_head(window, app):
             close_counter += 1
         else:
             height = leapModule.get_height()
-            scaled_height = scale(height, 100, 400, 50, 90)
+            scaled_height = scale(height, 100, 400, 30, 90)
 
             angles = leapModule.get_pitch_yaw()
             # scale angles according to height for sensitivity
-            scaled_angles = \
+            scaled_angles1 = \
                 [
-                    scale(angles[0], -70, 70, -scaled_height, scaled_height),
-                    scale(angles[1], -70, 70, -scaled_height, scaled_height)
-                ]
-            # scale angles according to nao head limits
-            scaled_angles = \
-                [
-                    scale(scaled_angles[0], -scaled_height, scaled_height, -39, 30),
-                    scale(scaled_angles[1], -scaled_height, scaled_height, -120, 120)
+                    scale(angles[0], -scaled_height, scaled_height, -90, 90),
+                    scale(angles[1], -scaled_height, scaled_height, -90, 90)
                 ]
 
-            output_yaw = scale(scaled_angles[0], -39, 30, 0, 99)
-            output_pitch = scale(scaled_angles[1], -120, 120, 0, 99)
+            # scale angles according to nao head limits
+            scaled_angles2 = \
+                [
+                    scale(scaled_angles1[0], -90, 90, -39, 30),
+                    scale(scaled_angles1[1], -90, 90, -120, 120)
+                ]
+
+            output_pitch = scale(scaled_angles2[0], -39, 30, 0, 99)
+            output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
             window.sldr_pitch.setValue(output_pitch)
             window.sldr_yaw.setValue(output_yaw)
 
-            output_height = scale(height, 100, 400, 0, 99)
+            output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
 
             app.processEvents()
-
-            print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
+            print "input, " + str(angles[0]) + ", output, " + str(scaled_angles2[0])
+            # print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
             # rad_scaled_angles = [scaled_angles[0] * -0.0174533, scaled_angles[1] * 0.0174533]
             # naoModule.rotate_head(rad_scaled_angles)
         extended_fingers = leapModule.get_extended_fingers()

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'movement_window.ui'
 #
-# Created: Mon Apr 10 21:04:40 2017
+# Created: Tue Apr 11 01:33:54 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,14 +34,14 @@ class Ui_movement_window(object):
         self.lbl_title.setFont(font)
         self.lbl_title.setAlignment(QtCore.Qt.AlignCenter)
         self.lbl_title.setObjectName(_fromUtf8("lbl_title"))
-        self.sldr_pitch = QtGui.QSlider(movement_window)
-        self.sldr_pitch.setGeometry(QtCore.QRect(90, 150, 160, 22))
-        self.sldr_pitch.setOrientation(QtCore.Qt.Horizontal)
-        self.sldr_pitch.setObjectName(_fromUtf8("sldr_pitch"))
         self.sldr_yaw = QtGui.QSlider(movement_window)
-        self.sldr_yaw.setGeometry(QtCore.QRect(160, 80, 22, 160))
-        self.sldr_yaw.setOrientation(QtCore.Qt.Vertical)
+        self.sldr_yaw.setGeometry(QtCore.QRect(90, 150, 160, 22))
+        self.sldr_yaw.setOrientation(QtCore.Qt.Horizontal)
         self.sldr_yaw.setObjectName(_fromUtf8("sldr_yaw"))
+        self.sldr_pitch = QtGui.QSlider(movement_window)
+        self.sldr_pitch.setGeometry(QtCore.QRect(160, 80, 22, 160))
+        self.sldr_pitch.setOrientation(QtCore.Qt.Vertical)
+        self.sldr_pitch.setObjectName(_fromUtf8("sldr_pitch"))
         self.sldr_height = QtGui.QSlider(movement_window)
         self.sldr_height.setGeometry(QtCore.QRect(350, 80, 22, 160))
         self.sldr_height.setOrientation(QtCore.Qt.Vertical)
@@ -104,7 +104,7 @@ class Ui_movement_window(object):
         QtCore.QMetaObject.connectSlotsByName(movement_window)
 
     def retranslateUi(self, movement_window):
-        movement_window.setWindowTitle(_translate("movement_window", "Dialog", None))
+        movement_window.setWindowTitle(_translate("movement_window", "Movement", None))
         self.lbl_title.setText(_translate("movement_window", "Movement Status", None))
         self.lbl_x_sliders.setText(_translate("movement_window", "Pitch / Yaw", None))
         self.lbl_height_slider.setText(_translate("movement_window", "Height", None))

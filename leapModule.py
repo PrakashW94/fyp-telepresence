@@ -45,9 +45,11 @@ def get_yaw():
 
 
 def get_pitch_yaw():
+    global last_frame
     frame = controller.frame()
-    while frame.id < 0:
+    while last_frame == frame.id:
         frame = controller.frame()
+    last_frame = frame.id
     hand = frame.hands[0]
     pitch = int(hand.direction.pitch * Leap.RAD_TO_DEG)
     yaw = int(hand.direction.yaw * Leap.RAD_TO_DEG)

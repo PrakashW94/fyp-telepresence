@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Movement</string>
   </property>
   <widget class="QLabel" name="lbl_title">
    <property name="geometry">
@@ -34,7 +34,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSlider" name="sldr_pitch">
+  <widget class="QSlider" name="sldr_yaw">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -47,7 +47,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QSlider" name="sldr_yaw">
+  <widget class="QSlider" name="sldr_pitch">
    <property name="geometry">
     <rect>
      <x>160</x>
