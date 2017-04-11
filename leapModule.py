@@ -29,9 +29,11 @@ def get_roll():
 
 
 def get_pitch():
+    global last_frame
     frame = controller.frame()
-    while frame.id < 0:
+    while last_frame == frame.id:
         frame = controller.frame()
+    last_frame = frame.id
     hand = frame.hands[0]
     return int(hand.direction.pitch * Leap.RAD_TO_DEG)
 

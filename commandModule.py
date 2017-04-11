@@ -262,8 +262,105 @@ def nao_rotate_head(window, app):
             app.processEvents()
             print "input, " + str(angles[0]) + ", output, " + str(scaled_angles2[0])
             # print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
-            # rad_scaled_angles = [scaled_angles[0] * -0.0174533, scaled_angles[1] * 0.0174533]
-            # naoModule.rotate_head(rad_scaled_angles)
+            rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * 0.0174533]
+            naoModule.rotate_head(rad_scaled_angles)
         extended_fingers = leapModule.get_extended_fingers()
 
 
+def nao_walk2(window, app):
+    hands = 0
+
+    while hands == 0:
+        hands = leapModule.count_hands()
+
+    extended_fingers = leapModule.get_extended_fingers()
+    close_counter = 0
+    while close_counter < 300:
+        if extended_fingers == 0:
+            close_counter += 1
+        else:
+            height = leapModule.get_height()
+            scaled_height = scale(height, 100, 400, 30, 90)
+
+            angles = leapModule.get_pitch_yaw()
+            # scale angles according to height for sensitivity
+            scaled_angles1 = \
+                [
+                    scale(angles[0], -scaled_height, scaled_height, -90, 90),
+                    scale(angles[1], -scaled_height, scaled_height, -90, 90)
+                ]
+
+            # scale angles according to output scale
+            scaled_angles2 = \
+                [
+                    scale(scaled_angles1[0], -90, 90, 0, 99),
+                    scale(scaled_angles1[1], -90, 90, 0, 99)
+                ]
+
+            output_pitch = scaled_angles2[0]
+            output_yaw = scaled_angles2[1]
+
+            window.sldr_pitch.setValue(output_pitch)
+            window.sldr_yaw.setValue(output_yaw)
+
+            output_height = scale(scaled_height, 30, 90, 0, 99)
+            window.sldr_height.setValue(output_height)
+
+            app.processEvents()
+
+            scaled_pitch = scale(scaled_angles2[0], 0, 99, -0.1, 0.1)
+            if -0.03 < scaled_pitch < 0.03:
+                scaled_pitch = 0
+
+            if scaled_angles2[1] < 33:
+                rad_yaw = 20
+            elif scaled_angles2[1] > 66:
+                rad_yaw = -20
+            else:
+                rad_yaw = 0
+
+            rad_yaw *= 0.0174533
+
+            print "x, " + str(scaled_pitch) + ", theta: " + str(rad_yaw)
+            naoModule.move_walk_turn(scaled_pitch, rad_yaw)
+        extended_fingers = leapModule.get_extended_fingers()
+    naoModule.move_stop()
+
+
+def nao_camera(window, app):
+    from PyQt4.QtGui import QImage, QPainter
+    from naoqi import ALProxy
+
+    display = window.nao_camera_image
+    display._image = QImage()
+    img_width = 320
+    img_length = 240
+    display.resize(img_width, img_length)
+
+    import vision_definitions
+    camera = ALProxy("ALVideoDevice", "169.254.254.250", 9559)
+
+    camera_id = 0
+    resolution = vision_definitions.kQQVGA
+    colour_space = vision_definitions.kYuvColorSpace
+    fps = 30
+
+    display._imgClient = camera.subscribe("_client", resolution, colour_space, fps)
+    camera.setParam(vision_definitions.kCameraSelectID, camera_id)
+    display._videoProxy = camera
+
+    while 1:
+        display._alImage = display._videoProxy.getImageRemote(display._imgClient)
+        display._image = QImage\
+            (
+                display._alImage[6],
+                display._alImage[0],
+                display._alImage[1],
+                QImage.Format_RGB888
+            )
+
+        display.update()
+        # painter = QPainter(display)
+        # painter.drawImage(painter.viewport(), display._image)
+        time.sleep(0.1)
+        app.processEvents()
