@@ -41,8 +41,8 @@ class ImageWidget(QWidget):
 
         self._image = QImage()
 
-        self._img_width = 320
-        self._img_length = 240
+        self._img_width = 640
+        self._img_length = 480
         self.resize(self._img_width, self._img_length)
 
         self._camera_id = 0
@@ -87,6 +87,8 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         self.btn_nao_camera.clicked.connect(self.btn_camera_click)
         self.btn_nao_walk.clicked.connect(self.btn_nao_walk_click)
         self.btn_nao_turn.clicked.connect(self.btn_nao_turn_click)
+        self.btn_nao_say.clicked.connect(self.btn_nao_say_click)
+        self.btn_nao_larm.clicked.connect(self.btn_nao_larm_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
@@ -114,10 +116,22 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
 
     def btn_nao_turn_click(self):
         print "Turn button"
+        commandModule.test_func()
+        # commandModule.nao_stand()
         # movement_window = MovementWindow(self)
         # movement_window.show()
         # commandModule.nao_stand()
         # commandModule.nao_turn()
+
+    def btn_nao_say_click(self):
+        phrase_to_say = self.text_nao_say.toPlainText()
+        commandModule.nao_say(str(phrase_to_say))
+
+    def btn_nao_larm_click(self):
+        movement_window = MovementWindow(self)
+        movement_window.show()
+        commandModule.nao_left_arm(movement_window, app)
+        movement_window.close()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

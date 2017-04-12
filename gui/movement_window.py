@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'movement_window.ui'
 #
-# Created: Tue Apr 11 01:33:54 2017
+# Created: Wed Apr 12 14:37:19 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -106,7 +106,7 @@ class Ui_movement_window(object):
     def retranslateUi(self, movement_window):
         movement_window.setWindowTitle(_translate("movement_window", "Movement", None))
         self.lbl_title.setText(_translate("movement_window", "Movement Status", None))
-        self.lbl_x_sliders.setText(_translate("movement_window", "Pitch / Yaw", None))
+        self.lbl_x_sliders.setText(_translate("movement_window", "Rotation", None))
         self.lbl_height_slider.setText(_translate("movement_window", "Height", None))
         self.lbl_yaw_max.setText(_translate("movement_window", "30", None))
         self.lbl_yaw_min.setText(_translate("movement_window", "-39", None))

@@ -46,7 +46,7 @@ def get_yaw():
     return hand.direction.yaw
 
 
-def get_pitch_yaw():
+def get_pitch_yaw_roll():
     global last_frame
     frame = controller.frame()
     while last_frame == frame.id:
@@ -55,7 +55,8 @@ def get_pitch_yaw():
     hand = frame.hands[0]
     pitch = int(hand.direction.pitch * Leap.RAD_TO_DEG)
     yaw = int(hand.direction.yaw * Leap.RAD_TO_DEG)
-    return [pitch, yaw]
+    roll = int(hand.palm_normal.roll * Leap.RAD_TO_DEG)
+    return [pitch, yaw, roll]
 
 
 def get_height():

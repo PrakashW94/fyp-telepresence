@@ -1,6 +1,6 @@
 from naoqi import ALProxy
 
-naoIP = "169.254.179.156"  # wired blue
+naoIP = "169.254.108.110"  # wired blue
 # naoIP = "169.254.254.250" # wired red
 # naoIP = "158.125.103.28"  # wireless blue
 naoPort = 9559
@@ -13,13 +13,11 @@ def say_phrase(phrase_to_say):
 
 def move_walk(dist):
     motion = ALProxy("ALMotion", naoIP, naoPort)
-    # motion.moveInit()
     motion.post.moveTo(dist, 0, 0)
 
 
 def move_turn(theta):
     motion = ALProxy("ALMotion", naoIP, naoPort)
-    # motion.moveInit()
     motion.post.moveTo(0.1, 0, theta)
 
 
@@ -84,7 +82,7 @@ def rotate_head(angles):
 def initialise_video_proxy(widget):
     import vision_definitions
     widget._video_proxy = ALProxy("ALVideoDevice", naoIP, naoPort)
-    resolution = vision_definitions.kQQVGA
+    resolution = vision_definitions.kVGA
     colour_space = vision_definitions.kRGBColorSpace
     fps = 30
     widget._img_client = widget._video_proxy.subscribe("_client", resolution, colour_space, fps)
@@ -93,3 +91,24 @@ def initialise_video_proxy(widget):
 
 def destroy_video_proxy(widget):
     widget._video_proxy.unsubscribe(widget._img_client)
+
+
+def move_left_shoulder(angles):
+    motion = ALProxy("ALMotion", naoIP, naoPort)
+    joints = ["LShoulderPitch", "LShoulderRoll"]
+    fraction_max_speed = 0.3
+    motion.setAngles(joints, angles, fraction_max_speed)
+
+
+def move_left_elbow(angles):
+    motion = ALProxy("ALMotion", naoIP, naoPort)
+    joints = ["LElbowYaw", "LElbowRoll"]
+    fraction_max_speed = 0.3
+    motion.setAngles(joints, angles, fraction_max_speed)
+
+
+def move_left_wrist(angles):
+    motion = ALProxy("ALMotion", naoIP, naoPort)
+    joints = ["LWristYaw"]
+    fraction_max_speed = 0.3
+    motion.setAngles(joints, angles, fraction_max_speed)

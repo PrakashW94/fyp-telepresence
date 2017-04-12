@@ -127,22 +127,6 @@ def scale(value, old_min, old_max, new_min, new_max):
 
 
 def test_func():
-    hands = 0
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        height = leapModule.get_height()
-        scaled_height = scale(height, 100, 400, 50, 90)
-        pitch = leapModule.get_pitch()
-        scaled_pitch1 = scale(pitch, -20, 90, 0, scaled_height)
-        output_str = "raw: " + str(pitch) \
-              + ", scaled: " + str(scaled_pitch1) \
-              + ", height: " + str(scaled_height)
-
-        print output_str
-        hands = leapModule.count_hands()
-
     print "Test function complete!"
 
 
@@ -236,7 +220,7 @@ def nao_rotate_head(window, app):
             height = leapModule.get_height()
             scaled_height = scale(height, 100, 400, 30, 90)
 
-            angles = leapModule.get_pitch_yaw()
+            angles = leapModule.get_pitch_yaw_roll()
             # scale angles according to height for sensitivity
             scaled_angles1 = \
                 [
@@ -282,7 +266,7 @@ def nao_walk2(window, app):
             height = leapModule.get_height()
             scaled_height = scale(height, 100, 400, 30, 90)
 
-            angles = leapModule.get_pitch_yaw()
+            angles = leapModule.get_pitch_yaw_roll()
             # scale angles according to height for sensitivity
             scaled_angles1 = \
                 [
@@ -335,4 +319,111 @@ def nao_camera_unregister(widget):
     naoModule.destroy_video_proxy(widget)
 
 
+def nao_left_arm(window, app):
+    hands = 0
 
+    while hands == 0:
+        hands = leapModule.count_hands()
+
+    extended_fingers = leapModule.get_extended_fingers()
+    close_counter = 0
+    while close_counter < 300:
+        if extended_fingers == 0:
+            close_counter += 1
+        else:
+            height = leapModule.get_height()
+            scaled_height = scale(height, 100, 400, 30, 90)
+
+            angles = leapModule.get_pitch_yaw_roll()
+            angles[2] *= -1  # invert roll
+            # scale angles according to height for sensitivity
+            scaled_angles1 = \
+                [
+                    scale(angles[0], -scaled_height, scaled_height, -90, 90),
+                    scale(angles[1], -scaled_height, scaled_height, -90, 90),
+                    scale(angles[2], -scaled_height, scaled_height, -90, 90)
+                ]
+
+            if extended_fingers == 5:
+                # move shoulder
+                # scale angles according to nao arm limits
+                scaled_angles2 = \
+                    [
+                        scale(scaled_angles1[0], -90, 90, -120, 120),
+                        scale(scaled_angles1[1], -90, 90, -1, 1),
+                        scale(scaled_angles1[2], -90, 90, -18, 76)
+                    ]
+
+                output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
+                # output_yaw = scale(scaled_angles2[1], -120, 120, -1, 1)
+                output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
+                window.sldr_pitch.setValue(output_pitch)
+                window.sldr_yaw.setValue(output_roll)
+
+                app.processEvents()
+
+                rad_scaled_angles = \
+                    [
+                        scaled_angles2[0] * -0.0174533,
+                        #scaled_angles2[1] * 0.0174533,
+                        scaled_angles2[2] * 0.0174533
+                    ]
+
+                naoModule.move_left_shoulder(rad_scaled_angles)
+            elif extended_fingers == 3:
+                # move elbow
+                # scale angles according to nao arm limits
+                scaled_angles2 = \
+                    [
+                        scale(scaled_angles1[0], -90, 90, -1, 1),
+                        scale(scaled_angles1[1], -90, 90, -120, 120),
+                        scale(scaled_angles1[2], -90, 90, -88.5, -2)
+                    ]
+
+                # output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
+                output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
+                output_roll = scale(scaled_angles2[2], -88.5, -2, 0, 99)
+                window.sldr_pitch.setValue(output_roll)
+                window.sldr_yaw.setValue(output_yaw)
+
+                app.processEvents()
+
+                rad_scaled_angles = \
+                    [
+                        scaled_angles2[0] * -0.0174533,
+                        # scaled_angles2[1] * 0.0174533,
+                        scaled_angles2[2] * 0.0174533
+                    ]
+
+                naoModule.move_left_elbow(rad_scaled_angles)
+            elif extended_fingers == 2:
+                # move wrist
+                # scale angles according to nao arm limits
+                scaled_angles2 = \
+                    [
+                        scale(scaled_angles1[0], -90, 90, -1, 1),
+                        scale(scaled_angles1[1], -90, 90, -105, 105),
+                        scale(scaled_angles1[2], -90, 90, -1, -1)
+                    ]
+
+                # output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
+                output_yaw = scale(scaled_angles2[1], -105, 105, 0, 99)
+                # output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
+                window.sldr_pitch.setValue(50)
+                window.sldr_yaw.setValue(output_yaw)
+
+                app.processEvents()
+
+                rad_scaled_angles = \
+                    [
+                        # scaled_angles2[0] * -0.0174533,
+                        scaled_angles2[1] * 0.0174533,
+                        # scaled_angles2[2] * 0.0174533
+                    ]
+
+                naoModule.move_left_wrist(rad_scaled_angles)
+            output_height = scale(scaled_height, 30, 90, 0, 99)
+            window.sldr_height.setValue(output_height)
+
+            app.processEvents()
+        extended_fingers = leapModule.get_extended_fingers()

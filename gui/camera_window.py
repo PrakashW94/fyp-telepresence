@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'camera_window.ui'
 #
-# Created: Tue Apr 11 18:04:38 2017
+# Created: Wed Apr 12 13:07:37 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,8 @@ class Ui_camera_window(object):
     def setupUi(self, camera_window):
         camera_window.setObjectName(_fromUtf8("camera_window"))
         camera_window.resize(400, 300)
+        camera_window.setMinimumSize(QtCore.QSize(400, 300))
+        camera_window.setMaximumSize(QtCore.QSize(400, 300))
 
         self.retranslateUi(camera_window)
         QtCore.QMetaObject.connectSlotsByName(camera_window)
