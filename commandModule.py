@@ -327,40 +327,12 @@ def nao_walk2(window, app):
     naoModule.move_stop()
 
 
-def nao_camera(window, app):
-    from PyQt4.QtGui import QImage, QPainter
-    from naoqi import ALProxy
+def nao_camera_register(widget):
+    naoModule.initialise_video_proxy(widget)
 
-    display = window.nao_camera_image
-    display._image = QImage()
-    img_width = 320
-    img_length = 240
-    display.resize(img_width, img_length)
 
-    import vision_definitions
-    camera = ALProxy("ALVideoDevice", "169.254.254.250", 9559)
+def nao_camera_unregister(widget):
+    naoModule.destroy_video_proxy(widget)
 
-    camera_id = 0
-    resolution = vision_definitions.kQQVGA
-    colour_space = vision_definitions.kYuvColorSpace
-    fps = 30
 
-    display._imgClient = camera.subscribe("_client", resolution, colour_space, fps)
-    camera.setParam(vision_definitions.kCameraSelectID, camera_id)
-    display._videoProxy = camera
 
-    while 1:
-        display._alImage = display._videoProxy.getImageRemote(display._imgClient)
-        display._image = QImage\
-            (
-                display._alImage[6],
-                display._alImage[0],
-                display._alImage[1],
-                QImage.Format_RGB888
-            )
-
-        display.update()
-        # painter = QPainter(display)
-        # painter.drawImage(painter.viewport(), display._image)
-        time.sleep(0.1)
-        app.processEvents()

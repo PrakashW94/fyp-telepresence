@@ -38,8 +38,6 @@ class CameraWindow(QtGui.QMainWindow, Ui_camera_window):
 class ImageWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
-        from naoModule import naoIP
-        from naoModule import naoPort
 
         self._image = QImage()
 
@@ -52,23 +50,11 @@ class ImageWidget(QWidget):
         self._al_image = None
         self._img_client = ""
 
-        self._register_image_client(naoIP, naoPort)
+        commandModule.nao_camera_register(self)
         self.startTimer(100)
 
-    def _register_image_client(self, nao_ip, nao_port):
-        from naoqi import ALProxy
-        import vision_definitions
-        self._video_proxy = ALProxy("ALVideoDevice", nao_ip, nao_port)
-
-        resolution = vision_definitions.kQVGA
-        colour_space = vision_definitions.kRGBColorSpace
-        fps = 30
-
-        self._img_client = self._video_proxy.subscribe("_client", resolution, colour_space, fps)
-        self._video_proxy.setParam(vision_definitions.kCameraSelectID, self._camera_id)
-
     def _unregister_image_client(self):
-        self._video_proxy.unsubscribe(self._img_client)
+        commandModule.nao_camera_unregister(self)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -118,7 +104,6 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         camera_window = CameraWindow(self)
         camera_window.setCentralWidget(camera_widget)
         camera_window.show()
-        # commandModule.nao_camera(camera_window, app)
 
     def btn_nao_walk_click(self):
         movement_window = MovementWindow(self)
@@ -139,30 +124,3 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-
-"""
-commands = ["1 - Head movement with Yaw (LR)", "2 - Head movement with Pitch (UD)", "3 - Walk linear", "4 - Walk rotate", "5 - Reset Pose"]
-while 1:
-    print "Menu"
-    for command in commands:
-        print command
-
-    input_command = input("Enter a command")
-
-    if input_command == 1:
-        commandModule.nao_rotate_head_yaw()
-    elif input_command == 2:
-        commandModule.nao_rotate_head_pitch()
-    elif input_command == 3:
-        commandModule.nao_walk()
-    elif input_command == 4:
-        commandModule.nao_turn()
-    elif input_command == 5:
-        commandModule.nao_stand()
-    elif input_command == 6:
-        commandModule.nao_say("Good morning Firat, welcome to my demo!")
-    elif input_command == 7:
-        commandModule.test_func()
-    else:
-        print "Command not recognised"
-"""

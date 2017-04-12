@@ -81,16 +81,15 @@ def rotate_head(angles):
     motion.setAngles(joints, angles, fraction_max_speed)
 
 
-def get_video_proxy(display):
+def initialise_video_proxy(widget):
     import vision_definitions
-    camera = ALProxy("ALVideoDevice", naoIP, naoPort)
-
-    camera_id = 0
+    widget._video_proxy = ALProxy("ALVideoDevice", naoIP, naoPort)
     resolution = vision_definitions.kQQVGA
-    colour_space = vision_definitions.kYuvColorSpace
+    colour_space = vision_definitions.kRGBColorSpace
     fps = 30
+    widget._img_client = widget._video_proxy.subscribe("_client", resolution, colour_space, fps)
+    widget._video_proxy.setParam(vision_definitions.kCameraSelectID, 0)
 
-    display._imgClient = camera.subscribe("_client", resolution, colour_space, fps)
-    camera.setParam(vision_definitions.kCameraSelectID, camera_id)
-    display._videoProxy = camera
 
+def destroy_video_proxy(widget):
+    widget._video_proxy.unsubscribe(widget._img_client)
