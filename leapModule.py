@@ -94,4 +94,6 @@ def get_bandwidth_status():
 
 def get_extended_fingers():
     frame = controller.frame()
+	# maybe add last frame check to slow down window close?
+	# might be worth checking if the frames are being repeated, presumably they are...
     return len(frame.pointables.extended())

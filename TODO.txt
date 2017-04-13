@@ -1,0 +1,4 @@
+Install the following:
+- PyCharm: https://www.jetbrains.com/pycharm/download/#section=windows
+- python xy: https://python-xy.github.io/downloads.html
+- Leap Motion: https://developer.leapmotion.com/get-started/
