@@ -8,15 +8,12 @@ import Leap
 controller = Leap.Controller()
 last_frame = 0
 
-
+# flag
 def connect():
-    if not controller.is_connected:
-        print "waiting for connection..."
+    while not controller.is_connected:
+        pass
     else:
-        while not controller.is_connected:
-            pass
-        else:
-            print "connected"
+        print "connected"
 
 
 def get_roll():
@@ -45,7 +42,7 @@ def get_yaw():
     hand = frame.hands[0]
     return hand.direction.yaw
 
-
+# flag
 def get_pitch_yaw_roll():
     global last_frame
     frame = controller.frame()
@@ -58,7 +55,7 @@ def get_pitch_yaw_roll():
     roll = int(hand.palm_normal.roll * Leap.RAD_TO_DEG)
     return [pitch, yaw, roll]
 
-
+# flag
 def get_height():
     frame = controller.frame()
     while frame.id < 0:
@@ -67,7 +64,7 @@ def get_height():
     height = hand.palm_position[1]
     return height
 
-
+# flag
 def count_hands():
     frame = controller.frame()
     while frame.id < 0:
@@ -77,23 +74,46 @@ def count_hands():
     else:
         return 1
 
-
+# flag
 def get_service_status():
     return controller.is_connected
 
-
+# flag
 def get_tracking_status():
     device = controller.devices[0]
     return device.is_streaming
 
-
+# flag
 def get_bandwidth_status():
     frame = controller.frame()
     return frame.current_frames_per_second
 
-
+# flag
 def get_extended_fingers():
+    # global last_frame
+    # while last_frame == frame.id:
+        # frame = controller.frame()
+    # last_frame = frame.id
     frame = controller.frame()
-	# maybe add last frame check to slow down window close?
-	# might be worth checking if the frames are being repeated, presumably they are...
     return len(frame.pointables.extended())
+
+# flag
+def get_hand_gesture():
+    frame = controller.frame()
+    pointables_list = frame.hands[0].pointables
+    gesture = ""
+    for pointable in pointables_list:
+        if pointable.is_extended and pointable.is_valid:
+            gesture += "T"
+        else:
+            gesture += "F"
+    if gesture == "TTTTT":
+        return 0
+    elif gesture == "FTTTF":
+        return 1
+    elif gesture == "TFFFT":
+        return 2
+    elif gesture == "FFFFF":
+        return 3
+    else:
+        return -1

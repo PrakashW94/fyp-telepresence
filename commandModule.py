@@ -4,16 +4,16 @@ import time
 
 leapModule.connect()
 
-
+# flag
 def nao_stand():
     naoModule.posture_stand()
 
-
+# flag
 def nao_say(phrase_to_say):
     naoModule.say_phrase(phrase_to_say)
 
 
-def nao_walk():
+def nao_walk_ss():
     direction = 0
     hands = 0
     while hands == 0:
@@ -114,7 +114,7 @@ def nao_rotate_head_pitch():
         hands = leapModule.count_hands()
     naoModule.move_stop()
 
-
+# flag
 def scale(value, old_min, old_max, new_min, new_max):
     old_range = old_max - old_min
     new_range = new_max - new_min
@@ -127,6 +127,16 @@ def scale(value, old_min, old_max, new_min, new_max):
 
 
 def test_func():
+    hands = 0
+    while hands == 0:
+        hands = leapModule.count_hands()
+
+    while hands == 1:
+        gesture = leapModule.get_hand_gesture()
+        print gesture
+
+        hands = leapModule.count_hands()
+
     print "Test function complete!"
 
 
@@ -152,7 +162,7 @@ def test_func2(window, app):
 
     print "Test function complete!"
 
-
+# flag
 def update_status_window(window, app):
     leap_service_status = leapModule.get_service_status()
     leap_tracking_status = leapModule.get_tracking_status()
@@ -171,7 +181,8 @@ def update_status_window(window, app):
         window.edit_leap_tracking.setText("NOT CONNECTED")
         window.edit_leap_tracking.setStyleSheet("background-color:red")
 
-    nao_connection_status = naoModule.get_connection_status()
+    # Reconnect to robot
+    nao_connection_status = False  # naoModule.get_connection_status()
 
     if nao_connection_status:
         window.edit_nao_connection.setText("CONNECTED")
@@ -198,12 +209,12 @@ def update_status_window(window, app):
         app.processEvents()
         # time.sleep(0.5)
 
-
+# flag
 def nao_set_volume(value):
     naoModule.set_volume(value)
     naoModule.say_phrase("My volume is now " + str(value))
 
-
+# flag
 def nao_rotate_head(window, app):
     hands = 0
 
@@ -250,8 +261,8 @@ def nao_rotate_head(window, app):
             naoModule.rotate_head(rad_scaled_angles)
         extended_fingers = leapModule.get_extended_fingers()
 
-
-def nao_walk2(window, app):
+# flag
+def nao_walk(window, app):
     hands = 0
 
     while hands == 0:
@@ -310,25 +321,25 @@ def nao_walk2(window, app):
         extended_fingers = leapModule.get_extended_fingers()
     naoModule.move_stop()
 
-
+# flag
 def nao_camera_register(widget):
     naoModule.initialise_video_proxy(widget)
 
-
+# flag
 def nao_camera_unregister(widget):
     naoModule.destroy_video_proxy(widget)
 
-
+# flag
 def nao_left_arm(window, app):
     hands = 0
 
     while hands == 0:
         hands = leapModule.count_hands()
 
-    extended_fingers = leapModule.get_extended_fingers()
+    gesture = leapModule.get_hand_gesture()
     close_counter = 0
-    while close_counter < 300:
-        if extended_fingers == 0:
+    while close_counter < 120:
+        if gesture == 3:
             close_counter += 1
         else:
             height = leapModule.get_height()
@@ -344,7 +355,7 @@ def nao_left_arm(window, app):
                     scale(angles[2], -scaled_height, scaled_height, -90, 90)
                 ]
 
-            if extended_fingers == 5:
+            if gesture == 0:
                 # move shoulder
                 # scale angles according to nao arm limits
                 scaled_angles2 = \
@@ -369,8 +380,8 @@ def nao_left_arm(window, app):
                         scaled_angles2[2] * 0.0174533
                     ]
 
-                naoModule.move_left_shoulder(rad_scaled_angles)
-            elif extended_fingers == 3:
+                # naoModule.move_left_shoulder(rad_scaled_angles)
+            elif gesture == 1:
                 # move elbow
                 # scale angles according to nao arm limits
                 scaled_angles2 = \
@@ -395,35 +406,36 @@ def nao_left_arm(window, app):
                         scaled_angles2[2] * 0.0174533
                     ]
 
-                naoModule.move_left_elbow(rad_scaled_angles)
-            elif extended_fingers == 2:
+                # naoModule.move_left_elbow(rad_scaled_angles)
+            elif gesture == 2:
                 # move wrist
                 # scale angles according to nao arm limits
                 scaled_angles2 = \
                     [
                         scale(scaled_angles1[0], -90, 90, -1, 1),
-                        scale(scaled_angles1[1], -90, 90, -105, 105),
-                        scale(scaled_angles1[2], -90, 90, -1, -1)
+                        scale(scaled_angles1[1], -90, 90, -1, 1),
+                        scale(scaled_angles1[2], -90, 90, -105, 105)
                     ]
 
                 # output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
-                output_yaw = scale(scaled_angles2[1], -105, 105, 0, 99)
-                # output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
+                # output_yaw = scale(scaled_angles2[1], -105, 105, 0, 99)
+                output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
                 window.sldr_pitch.setValue(50)
-                window.sldr_yaw.setValue(output_yaw)
+                window.sldr_yaw.setValue(output_roll)
 
                 app.processEvents()
 
                 rad_scaled_angles = \
                     [
                         # scaled_angles2[0] * -0.0174533,
-                        scaled_angles2[1] * 0.0174533,
-                        # scaled_angles2[2] * 0.0174533
+                        # scaled_angles2[1] * 0.0174533,
+                        scaled_angles2[2] * 0.0174533
                     ]
 
-                naoModule.move_left_wrist(rad_scaled_angles)
+                # naoModule.move_left_wrist(rad_scaled_angles)
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
 
             app.processEvents()
-        extended_fingers = leapModule.get_extended_fingers()
+        gesture = leapModule.get_hand_gesture()
+        print gesture

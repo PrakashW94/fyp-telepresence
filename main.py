@@ -86,9 +86,10 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         self.btn_nao_head.clicked.connect(self.btn_head_click)
         self.btn_nao_camera.clicked.connect(self.btn_camera_click)
         self.btn_nao_walk.clicked.connect(self.btn_nao_walk_click)
-        self.btn_nao_turn.clicked.connect(self.btn_nao_turn_click)
+        self.btn_test.clicked.connect(self.btn_nao_test_click)
         self.btn_nao_say.clicked.connect(self.btn_nao_say_click)
         self.btn_nao_larm.clicked.connect(self.btn_nao_larm_click)
+        self.btn_nao_rarm.clicked.connect(self.btn_nao_rarm_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
@@ -111,17 +112,12 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         movement_window = MovementWindow(self)
         movement_window.show()
         commandModule.nao_stand()
-        commandModule.nao_walk2(movement_window, app)
+        commandModule.nao_walk(movement_window, app)
         movement_window.close()
 
-    def btn_nao_turn_click(self):
+    def btn_nao_test_click(self):
         print "Turn button"
         commandModule.test_func()
-        # commandModule.nao_stand()
-        # movement_window = MovementWindow(self)
-        # movement_window.show()
-        # commandModule.nao_stand()
-        # commandModule.nao_turn()
 
     def btn_nao_say_click(self):
         phrase_to_say = self.text_nao_say.toPlainText()
@@ -132,6 +128,9 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         movement_window.show()
         commandModule.nao_left_arm(movement_window, app)
         movement_window.close()
+
+    def btn_nao_rarm_click(self):
+        print "Right arm button click"
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

@@ -82,7 +82,7 @@
      <string>Make Nao Walk</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_nao_turn">
+   <widget class="QPushButton" name="btn_test">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -92,7 +92,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Make Nao Turn</string>
+     <string>Test Button</string>
     </property>
    </widget>
   </widget>

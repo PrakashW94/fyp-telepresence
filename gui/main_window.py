@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Fri Apr 07 18:56:42 2017
+# Created: Sat Apr 15 23:05:38 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -50,9 +50,9 @@ class Ui_main_window(object):
         self.btn_nao_walk = QtGui.QPushButton(self.group_movement)
         self.btn_nao_walk.setGeometry(QtCore.QRect(10, 30, 131, 31))
         self.btn_nao_walk.setObjectName(_fromUtf8("btn_nao_walk"))
-        self.btn_nao_turn = QtGui.QPushButton(self.group_movement)
-        self.btn_nao_turn.setGeometry(QtCore.QRect(10, 70, 131, 31))
-        self.btn_nao_turn.setObjectName(_fromUtf8("btn_nao_turn"))
+        self.btn_test = QtGui.QPushButton(self.group_movement)
+        self.btn_test.setGeometry(QtCore.QRect(10, 70, 131, 31))
+        self.btn_test.setObjectName(_fromUtf8("btn_test"))
         self.group_control = QtGui.QGroupBox(main_window)
         self.group_control.setGeometry(QtCore.QRect(190, 200, 151, 161))
         font = QtGui.QFont()
@@ -105,7 +105,7 @@ class Ui_main_window(object):
         self.lbl_title.setText(_translate("main_window", "Nao Telepresence System - V1", None))
         self.group_movement.setTitle(_translate("main_window", "Movement", None))
         self.btn_nao_walk.setText(_translate("main_window", "Make Nao Walk", None))
-        self.btn_nao_turn.setText(_translate("main_window", "Make Nao Turn", None))
+        self.btn_test.setText(_translate("main_window", "Test Button", None))
         self.group_control.setTitle(_translate("main_window", "Joint Control", None))
         self.btn_nao_head.setText(_translate("main_window", "Head", None))
         self.btn_nao_larm.setText(_translate("main_window", "Left Arm", None))
