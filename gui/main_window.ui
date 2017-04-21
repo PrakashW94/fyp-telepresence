@@ -208,7 +208,7 @@
      <x>360</x>
      <y>200</y>
      <width>151</width>
-     <height>111</height>
+     <height>151</height>
     </rect>
    </property>
    <property name="font">
@@ -243,6 +243,19 @@
     </property>
     <property name="text">
      <string>Status</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_command_list">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show Record</string>
     </property>
    </widget>
   </widget>

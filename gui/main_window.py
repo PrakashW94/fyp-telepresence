@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Sat Apr 15 23:05:38 2017
+# Created: Fri Apr 21 15:04:09 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -85,7 +85,7 @@ class Ui_main_window(object):
         self.btn_nao_say.setGeometry(QtCore.QRect(10, 90, 131, 31))
         self.btn_nao_say.setObjectName(_fromUtf8("btn_nao_say"))
         self.group_misc = QtGui.QGroupBox(main_window)
-        self.group_misc.setGeometry(QtCore.QRect(360, 200, 151, 111))
+        self.group_misc.setGeometry(QtCore.QRect(360, 200, 151, 151))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.group_misc.setFont(font)
@@ -96,6 +96,9 @@ class Ui_main_window(object):
         self.btn_status = QtGui.QPushButton(self.group_misc)
         self.btn_status.setGeometry(QtCore.QRect(10, 70, 131, 31))
         self.btn_status.setObjectName(_fromUtf8("btn_status"))
+        self.btn_command_list = QtGui.QPushButton(self.group_misc)
+        self.btn_command_list.setGeometry(QtCore.QRect(10, 110, 131, 31))
+        self.btn_command_list.setObjectName(_fromUtf8("btn_command_list"))
 
         self.retranslateUi(main_window)
         QtCore.QMetaObject.connectSlotsByName(main_window)
@@ -115,4 +118,5 @@ class Ui_main_window(object):
         self.group_misc.setTitle(_translate("main_window", "Misc", None))
         self.btn_nao_camera.setText(_translate("main_window", "Toggle Camera", None))
         self.btn_status.setText(_translate("main_window", "Status", None))
+        self.btn_command_list.setText(_translate("main_window", "Show Record", None))
 

@@ -8,12 +8,14 @@ import Leap
 controller = Leap.Controller()
 last_frame = 0
 
+
 # flag
 def connect():
+    print "Connecting..."
     while not controller.is_connected:
         pass
     else:
-        print "connected"
+        print "Connected"
 
 
 def get_roll():
@@ -42,6 +44,7 @@ def get_yaw():
     hand = frame.hands[0]
     return hand.direction.yaw
 
+
 # flag
 def get_pitch_yaw_roll():
     global last_frame
@@ -55,6 +58,7 @@ def get_pitch_yaw_roll():
     roll = int(hand.palm_normal.roll * Leap.RAD_TO_DEG)
     return [pitch, yaw, roll]
 
+
 # flag
 def get_height():
     frame = controller.frame()
@@ -63,6 +67,7 @@ def get_height():
     hand = frame.hands[0]
     height = hand.palm_position[1]
     return height
+
 
 # flag
 def count_hands():
@@ -74,19 +79,23 @@ def count_hands():
     else:
         return 1
 
+
 # flag
 def get_service_status():
     return controller.is_connected
+
 
 # flag
 def get_tracking_status():
     device = controller.devices[0]
     return device.is_streaming
 
+
 # flag
 def get_bandwidth_status():
     frame = controller.frame()
     return frame.current_frames_per_second
+
 
 # flag
 def get_extended_fingers():
@@ -96,6 +105,7 @@ def get_extended_fingers():
     # last_frame = frame.id
     frame = controller.frame()
     return len(frame.pointables.extended())
+
 
 # flag
 def get_hand_gesture():

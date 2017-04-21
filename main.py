@@ -7,6 +7,7 @@ from gui.main_window import Ui_main_window
 from gui.status_window import Ui_status_window
 from gui.movement_window import Ui_movement_window
 from gui.camera_window import Ui_camera_window
+from gui.command_list_window import Ui_command_list_window
 
 
 class StatusWindow(QtGui.QMainWindow, Ui_status_window):
@@ -24,6 +25,13 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
 class MovementWindow(QtGui.QMainWindow, Ui_movement_window):
     def __init__(self, parent=None):
         super(MovementWindow, self).__init__(parent)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.setupUi(self)
+
+
+class CommandListWindow(QtGui.QMainWindow, Ui_command_list_window):
+    def __init__(self, parent=None):
+        super(CommandListWindow, self).__init__(parent)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
@@ -86,10 +94,10 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         self.btn_nao_head.clicked.connect(self.btn_head_click)
         self.btn_nao_camera.clicked.connect(self.btn_camera_click)
         self.btn_nao_walk.clicked.connect(self.btn_nao_walk_click)
-        self.btn_test.clicked.connect(self.btn_nao_test_click)
         self.btn_nao_say.clicked.connect(self.btn_nao_say_click)
         self.btn_nao_larm.clicked.connect(self.btn_nao_larm_click)
         self.btn_nao_rarm.clicked.connect(self.btn_nao_rarm_click)
+        self.btn_command_list.clicked.connect(self.btn_nao_test_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
@@ -115,10 +123,6 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         commandModule.nao_walk(movement_window, app)
         movement_window.close()
 
-    def btn_nao_test_click(self):
-        print "Turn button"
-        commandModule.test_func()
-
     def btn_nao_say_click(self):
         phrase_to_say = self.text_nao_say.toPlainText()
         commandModule.nao_say(str(phrase_to_say))
@@ -126,11 +130,25 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def btn_nao_larm_click(self):
         movement_window = MovementWindow(self)
         movement_window.show()
-        commandModule.nao_left_arm(movement_window, app)
+        commandModule.nao_arm(movement_window, app, "left")
         movement_window.close()
 
     def btn_nao_rarm_click(self):
-        print "Right arm button click"
+        movement_window = MovementWindow(self)
+        movement_window.show()
+        commandModule.nao_arm(movement_window, app, "right")
+        movement_window.close()
+
+    def btn_command_list_click(self):
+        command_list_window = CommandListWindow(self)
+        commandModule.print_command_list(command_list_window, app)
+        command_list_window.show()
+
+    def btn_nao_test_click(self):
+        print "Test button"
+        command_list_window = CommandListWindow(self)
+        commandModule.print_command_list(command_list_window, app)
+        command_list_window.show()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
