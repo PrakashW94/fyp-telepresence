@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Fri Apr 21 15:04:09 2017
+# Created: Sat Apr 22 12:57:05 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -116,7 +116,7 @@ class Ui_main_window(object):
         self.group_speech.setTitle(_translate("main_window", "Speech", None))
         self.btn_nao_say.setText(_translate("main_window", "Say", None))
         self.group_misc.setTitle(_translate("main_window", "Misc", None))
-        self.btn_nao_camera.setText(_translate("main_window", "Toggle Camera", None))
+        self.btn_nao_camera.setText(_translate("main_window", "Show Camera", None))
         self.btn_status.setText(_translate("main_window", "Status", None))
-        self.btn_command_list.setText(_translate("main_window", "Show Record", None))
+        self.btn_command_list.setText(_translate("main_window", "Saved Actions", None))
 

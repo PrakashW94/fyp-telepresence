@@ -5,13 +5,12 @@ from naoqi import ALProxy
 # naoIP = "158.125.103.28"  # wireless blue
 # naoPort = 9559 # real robot
 naoIP = "127.0.0.1"
-naoPort = 55026
+naoPort = 60048
 
 
 # flag
 def say_phrase(phrase_to_say):
     tts = ALProxy("ALTextToSpeech", naoIP, naoPort)
-    print phrase_to_say
     tts.say(phrase_to_say)
 
 

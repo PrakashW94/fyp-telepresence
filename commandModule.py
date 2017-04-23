@@ -264,7 +264,7 @@ def nao_rotate_head(window, app):
             # print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
             rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * 0.0174533]
             naoModule.rotate_head(rad_scaled_angles)
-            local_command_list.append({"type": "head", "parameters": [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * 0.0174533]})
+            local_command_list.append({"type": "head", "parameters": rad_scaled_angles})
         extended_fingers = leapModule.get_extended_fingers()
     record_command_list(local_command_list)
 
@@ -279,7 +279,6 @@ def nao_walk(window, app):
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
     local_command_list = []
-    test_list = []
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
@@ -392,7 +391,7 @@ def nao_arm(window, app, hand):
                 rad_scaled_angles = \
                     [
                         scaled_angles2[0] * -0.0174533,
-                        #scaled_angles2[1] * 0.0174533,
+                        # scaled_angles2[1] * 0.0174533,
                         scaled_angles2[2] * 0.0174533
                     ]
 
@@ -463,28 +462,54 @@ def record_command_list(local_command_list):
 
 
 # flag
-def print_command_list(window, app):
+def print_command_list(window):
     list_view = window.wgt_command_list
+    list_view.clear()
     for local_command_list in command_list:
         output_string = local_command_list[0]["type"] + " - " + str(len(local_command_list))
         list_view.addItem(output_string)
-    # app.processEvents()
 
 
 # flag
-def parse_command_list():
-    frame_rate = 1 / leapModule.get_bandwidth_status()
+def parse_command(command, frame_rate):
+    if command["type"] == "head":
+        naoModule.rotate_head(command["parameters"])
+    elif command["type"] == "walk":
+        naoModule.move_walk_turn(command["parameters"][0], command["parameters"][1])
+    elif command["type"] == "say":
+        naoModule.say_phrase(command["parameters"][0])
+    elif command["type"] == "stand":
+        naoModule.posture_stand()
+    else:
+        print "WIP: " + command["type"]
+    time.sleep(frame_rate)
 
+
+# flag
+def play_all_actions():
+    frame_rate = 1 / leapModule.get_bandwidth_status()
     for local_command_list in command_list:
         for command in local_command_list:
-            time.sleep(frame_rate)
-            if command["type"] == "head":
-                naoModule.rotate_head(command["parameters"])
-            elif command["type"] == "walk":
-                naoModule.move_walk_turn(command["parameters"][0], command["parameters"][1])
-            elif command["type"] == "say":
-                naoModule.say_phrase(command["parameters"][0])
-            elif command["type"] == "stand":
-                naoModule.posture_stand()
-            else:
-                print "WIP: " + command["type"]
+            parse_command(command, frame_rate)
+
+
+# flag
+def play_single_action(selected_index):
+    frame_rate = 1 / leapModule.get_bandwidth_status()
+    for command in command_list[selected_index]:
+        parse_command(command, frame_rate)
+
+
+# flag
+def move_action_up(selected_index):
+    command_list.insert(selected_index - 1, command_list.pop(selected_index))
+
+
+# flag
+def move_action_down(selected_index):
+    command_list.insert(selected_index + 1, command_list.pop(selected_index))
+
+
+# flag
+def delete_action(selected_index):
+    command_list.pop(selected_index)

@@ -34,6 +34,32 @@ class CommandListWindow(QtGui.QMainWindow, Ui_command_list_window):
         super(CommandListWindow, self).__init__(parent)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setupUi(self)
+        self.btn_play_single.clicked.connect(self.btn_play_action_single_click)
+        self.btn_play_all.clicked.connect(self.btn_play_action_all_click)
+        self.btn_move_up.clicked.connect(self.btn_move_up_click)
+        self.btn_move_down.clicked.connect(self.btn_move_down_click)
+
+    def btn_play_action_single_click(self):
+        selected_index = self.wgt_command_list.currentRow()
+        commandModule.play_single_action(selected_index)
+
+    def btn_play_action_all_click(self):
+        commandModule.play_all_actions()
+
+    def btn_move_up_click(self):
+        selected_index = self.wgt_command_list.currentRow()
+        commandModule.move_action_up(selected_index)
+        commandModule.print_command_list(self.window())
+
+    def btn_move_down_click(self):
+        selected_index = self.wgt_command_list.currentRow()
+        commandModule.move_action_down(selected_index)
+        commandModule.print_command_list(self.window())
+
+    def btn_delete_action_click(self):
+        selected_index = self.wgt_command_list.currentRow()
+        commandModule.delete_action(selected_index)
+        commandModule.print_command_list(self.window())
 
 
 class CameraWindow(QtGui.QMainWindow, Ui_camera_window):
@@ -97,7 +123,7 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         self.btn_nao_say.clicked.connect(self.btn_nao_say_click)
         self.btn_nao_larm.clicked.connect(self.btn_nao_larm_click)
         self.btn_nao_rarm.clicked.connect(self.btn_nao_rarm_click)
-        self.btn_command_list.clicked.connect(self.btn_nao_test_click)
+        self.btn_command_list.clicked.connect(self.btn_command_list_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
@@ -141,14 +167,11 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
 
     def btn_command_list_click(self):
         command_list_window = CommandListWindow(self)
-        commandModule.print_command_list(command_list_window, app)
+        commandModule.print_command_list(command_list_window)
         command_list_window.show()
 
     def btn_nao_test_click(self):
         print "Test button"
-        command_list_window = CommandListWindow(self)
-        commandModule.print_command_list(command_list_window, app)
-        command_list_window.show()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

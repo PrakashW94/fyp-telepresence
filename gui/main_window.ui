@@ -229,7 +229,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Toggle Camera</string>
+     <string>Show Camera</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_status">
@@ -255,7 +255,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Show Record</string>
+     <string>Saved Actions</string>
     </property>
    </widget>
   </widget>

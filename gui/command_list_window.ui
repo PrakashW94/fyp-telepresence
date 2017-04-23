@@ -6,21 +6,133 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>282</height>
+    <width>325</width>
+    <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Saved Actions</string>
   </property>
   <widget class="QListWidget" name="wgt_command_list">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
-     <width>421</width>
-     <height>261</height>
+     <y>70</y>
+     <width>151</width>
+     <height>271</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_title">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>301</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Saved Actions</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_play_single">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Play Selected Action</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_play_all">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>110</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Play All Actions</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_move_up">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>150</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Move Action Up</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_move_down">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>190</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Move Action Down</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_deleve_action">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>230</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delete Action</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_save_actions">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>270</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Actions</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_load_actions">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>310</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Load Actions</string>
    </property>
   </widget>
  </widget>
