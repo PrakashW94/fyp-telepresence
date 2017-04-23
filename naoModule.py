@@ -5,7 +5,7 @@ from naoqi import ALProxy
 # naoIP = "158.125.103.28"  # wireless blue
 # naoPort = 9559 # real robot
 naoIP = "127.0.0.1"
-naoPort = 60048
+naoPort = 55218
 
 
 # flag
@@ -14,22 +14,13 @@ def say_phrase(phrase_to_say):
     tts.say(phrase_to_say)
 
 
-def move_walk(dist):
-    motion = ALProxy("ALMotion", naoIP, naoPort)
-    motion.post.moveTo(dist, 0, 0)
-
-
-def move_turn(theta):
-    motion = ALProxy("ALMotion", naoIP, naoPort)
-    motion.post.moveTo(0.1, 0, theta)
-
-
 # flag
 def move_walk_turn(dist, theta):
     motion = ALProxy("ALMotion", naoIP, naoPort)
     motion.move(dist, 0, theta)
 
 
+# flag
 def move_stop():
     motion = ALProxy("ALMotion", naoIP, naoPort)
     motion.stopMove()
@@ -39,16 +30,6 @@ def move_stop():
 def posture_stand():
     posture = ALProxy("ALRobotPosture", naoIP, naoPort)
     posture.goToPosture("StandInit", 0.5)
-
-
-def move_head_yaw(angle):
-    motion = ALProxy("ALMotion", naoIP, naoPort)
-    motion.changeAngles("HeadYaw", angle, 0.05)
-
-
-def move_head_pitch(angle):
-    motion = ALProxy("ALMotion", naoIP, naoPort)
-    motion.changeAngles("HeadPitch", angle, 0.05)
 
 
 # flag
@@ -140,3 +121,31 @@ def move_wrist(angles, hand):
         joints = ["RWristYaw"]
     fraction_max_speed = 0.3
     motion.setAngles(joints, angles, fraction_max_speed)
+
+
+# flag
+def get_arm_joint_limits(hand):
+    joint_limits = {}
+    if hand == "left":
+        joint_limits["shoulder_pitch_min"] = -120
+        joint_limits["shoulder_pitch_max"] = 120
+        joint_limits["shoulder_roll_min"] = -18
+        joint_limits["shoulder_roll_max"] = 76
+        joint_limits["elbow_yaw_min"] = -120
+        joint_limits["elbow_yaw_max"] = 120
+        joint_limits["elbow_roll_min"] = -89
+        joint_limits["elbow_roll_max"] = -2
+        joint_limits["wrist_roll_min"] = -105
+        joint_limits["wrist_roll_max"] = 105
+    else:
+        joint_limits["shoulder_pitch_min"] = -120
+        joint_limits["shoulder_pitch_max"] = 120
+        joint_limits["shoulder_roll_min"] = -76
+        joint_limits["shoulder_roll_max"] = 18
+        joint_limits["elbow_yaw_min"] = -120
+        joint_limits["elbow_yaw_max"] = 120
+        joint_limits["elbow_roll_min"] = 2
+        joint_limits["elbow_roll_max"] = 89
+        joint_limits["wrist_roll_min"] = -105
+        joint_limits["wrist_roll_max"] = 105
+    return joint_limits

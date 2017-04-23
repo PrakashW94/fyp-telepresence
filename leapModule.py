@@ -127,3 +127,4 @@ def get_hand_gesture():
         return 3
     else:
         return -1
+

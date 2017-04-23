@@ -2,7 +2,7 @@ import naoModule
 import leapModule
 import time
 
-command_list = []
+action_list = []
 
 # leapModule.connect()
 
@@ -10,117 +10,15 @@ command_list = []
 # flag
 def nao_stand():
     naoModule.posture_stand()
-    local_command_list = [{"type": "stand", "parameters": [-1]}]
-    record_command_list(local_command_list)
+    local_action_list = [{"type": "stand", "parameters": [-1]}]
+    record_action_list(local_action_list)
 
 
 # flag
 def nao_say(phrase_to_say):
     naoModule.say_phrase(phrase_to_say)
-    local_command_list = [{"type": "say", "parameters": [phrase_to_say]}]
-    record_command_list(local_command_list)
-
-
-def nao_walk_ss():
-    direction = 0
-    hands = 0
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        pitch = leapModule.get_pitch()
-        print pitch
-        if pitch > 0:
-            naoModule.move_walk(0.1)
-            if direction != 1:
-                direction = 1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm walking forward!")
-        else:
-            naoModule.move_walk(-0.1)
-            if direction != -1:
-                direction = -1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm walking backwards!")
-        hands = leapModule.count_hands()
-    naoModule.move_stop()
-
-
-def nao_turn():
-    direction = 0
-    hands = 0
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        yaw = leapModule.get_yaw()
-        print yaw
-        if yaw < 0:
-            naoModule.move_turn(yaw)
-            if direction != 1:
-                direction = 1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning clockwise!")
-        else:
-            naoModule.move_turn(yaw)
-            if direction != -1:
-                direction = -1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning anticlockwise!")
-        hands = leapModule.count_hands()
-    naoModule.move_stop()
-
-
-def nao_rotate_head_yaw():
-    direction = 0
-    hands = 0
-
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        yaw = leapModule.get_yaw()
-        print yaw
-        if yaw > 0:
-            naoModule.move_head_yaw(0.25)
-            if direction != 1:
-                direction = 1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning my head clockwise!")
-        else:
-            naoModule.move_head_yaw(-0.25)
-            if direction != -1:
-                direction = -1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning my head anticlockwise!")
-        hands = leapModule.count_hands()
-    naoModule.move_stop()
-
-
-def nao_rotate_head_pitch():
-    direction = 0
-    hands = 0
-
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        yaw = leapModule.get_pitch()
-        print yaw
-        if yaw > 0:
-            naoModule.move_head_pitch(-0.25)
-            if direction != 1:
-                direction = 1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning my head up!")
-        else:
-            naoModule.move_head_pitch(0.25)
-            if direction != -1:
-                direction = -1
-                naoModule.move_stop()
-                naoModule.say_phrase("I'm turning my head down!")
-        hands = leapModule.count_hands()
-    naoModule.move_stop()
+    local_action_list = [{"type": "say", "parameters": [phrase_to_say]}]
+    record_action_list(local_action_list)
 
 
 # flag
@@ -137,30 +35,6 @@ def scale(value, old_min, old_max, new_min, new_max):
 
 def test_func():
     naoModule.move_walk(1)
-
-    print "Test function complete!"
-
-
-def test_func2(window, app):
-    hands = 0
-    while hands == 0:
-        hands = leapModule.count_hands()
-
-    while hands == 1:
-        height = leapModule.get_height()
-        scaled_height = scale(height, 100, 400, 50, 90)
-        pitch = leapModule.get_pitch()
-        scaled_pitch1 = scale(pitch, -20, 90, 0, scaled_height)
-        output_str = "raw: " + str(pitch) \
-                     + ", scaled: " + str(scaled_pitch1) \
-                     + ", height: " + str(scaled_height)
-
-        print output_str
-        window.label.setText(output_str)
-        window.horizontalSlider.setValue(scaled_height)
-        app.processEvents()
-        hands = leapModule.count_hands()
-
     print "Test function complete!"
 
 
@@ -225,10 +99,15 @@ def nao_rotate_head(window, app):
     while hands == 0:
         hands = leapModule.count_hands()
 
-    # naoModule.say_phrase("My head is now under your control!")
+    window.lbl_wait.hide()
+    window.lbl_sldr_vertical.setText("Yaw")
+    window.lbl_sldr_horiz.setText("Pitch")
+    app.processEvents()
+
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
-    local_command_list = []
+    local_action_list = []
+
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
@@ -253,8 +132,8 @@ def nao_rotate_head(window, app):
 
             output_pitch = scale(scaled_angles2[0], -39, 30, 0, 99)
             output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
-            window.sldr_pitch.setValue(output_pitch)
-            window.sldr_yaw.setValue(output_yaw)
+            window.sldr_vertical.setValue(output_pitch)
+            window.sldr_horiz.setValue(output_yaw)
 
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
@@ -264,9 +143,10 @@ def nao_rotate_head(window, app):
             # print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
             rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * 0.0174533]
             naoModule.rotate_head(rad_scaled_angles)
-            local_command_list.append({"type": "head", "parameters": rad_scaled_angles})
+            local_action_list.append({"type": "head", "parameters": rad_scaled_angles})
         extended_fingers = leapModule.get_extended_fingers()
-    record_command_list(local_command_list)
+    if len(local_action_list) > 0:
+        record_action_list(local_action_list)
 
 
 # flag
@@ -276,9 +156,14 @@ def nao_walk(window, app):
     while hands == 0:
         hands = leapModule.count_hands()
 
+    window.lbl_wait.hide()
+    window.lbl_sldr_vertical.setText("Yaw")
+    window.lbl_sldr_horiz.setText("Pitch")
+    app.processEvents()
+
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
-    local_command_list = []
+    local_action_list = []
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
@@ -304,8 +189,8 @@ def nao_walk(window, app):
             output_pitch = scaled_angles2[0]
             output_yaw = scaled_angles2[1]
 
-            window.sldr_pitch.setValue(output_pitch)
-            window.sldr_yaw.setValue(output_yaw)
+            window.sldr_vertical.setValue(output_pitch)
+            window.sldr_horiz.setValue(output_yaw)
 
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
@@ -325,13 +210,13 @@ def nao_walk(window, app):
 
             rad_yaw *= 0.0174533
 
-            # print "x, " + str(scaled_pitch) + ", theta: " + str(rad_yaw)
             naoModule.move_walk_turn(scaled_pitch, rad_yaw)
-            local_command_list.append({"type": "walk", "parameters": [scaled_pitch, rad_yaw]})
+            local_action_list.append({"type": "walk", "parameters": [scaled_pitch, rad_yaw]})
 
         extended_fingers = leapModule.get_extended_fingers()
     naoModule.move_stop()
-    record_command_list(local_command_list)
+    if len(local_action_list) > 0:
+        record_action_list(local_action_list)
 
 
 # flag
@@ -344,172 +229,231 @@ def nao_camera_unregister(widget):
     naoModule.destroy_video_proxy(widget)
 
 
-# flag, TODO recording arm movement
+# flag
 def nao_arm(window, app, hand):
     hands = 0
 
     while hands == 0:
         hands = leapModule.count_hands()
 
+    window.lbl_wait.hide()
+    app.processEvents()
+
+    joint_limits = naoModule.get_arm_joint_limits(hand)
     gesture = leapModule.get_hand_gesture()
     close_counter = 0
-    while close_counter < 120:
+    local_action_list = []
+    while close_counter < 300:
         if gesture == 3:
             close_counter += 1
         else:
             height = leapModule.get_height()
-            scaled_height = scale(height, 100, 400, 30, 90)
+            scaled_height = scale(height, 100, 500, 30, 90)
 
             angles = leapModule.get_pitch_yaw_roll()
             angles[2] *= -1  # invert roll
             # scale angles according to height for sensitivity
-            scaled_angles1 = \
+            angles_scaled_height = \
                 [
-                    scale(angles[0], -scaled_height, scaled_height, -90, 90),
-                    scale(angles[1], -scaled_height, scaled_height, -90, 90),
-                    scale(angles[2], -scaled_height, scaled_height, -90, 90)
+                    scale(angles[0], -scaled_height, scaled_height, -90, 90),  # pitch
+                    scale(angles[1], -scaled_height, scaled_height, -90, 90),  # yaw
+                    scale(angles[2], -scaled_height, scaled_height, -90, 90)   # roll
                 ]
 
             if gesture == 0:
                 # move shoulder
                 # scale angles according to nao arm limits
-                scaled_angles2 = \
+                scaled_limits = \
                     [
-                        scale(scaled_angles1[0], -90, 90, -120, 120),
-                        scale(scaled_angles1[1], -90, 90, -1, 1),
-                        scale(scaled_angles1[2], -90, 90, -18, 76)
+                        scale(angles_scaled_height[0],  # pitch
+                              -90, 90,
+                              joint_limits["shoulder_pitch_min"], joint_limits["shoulder_pitch_max"]),
+                        scale(angles_scaled_height[2],  # roll
+                              -90, 90,
+                              joint_limits["shoulder_roll_min"], joint_limits["shoulder_roll_max"])
                     ]
 
-                output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
-                # output_yaw = scale(scaled_angles2[1], -120, 120, -1, 1)
-                output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
-                window.sldr_pitch.setValue(output_pitch)
-                window.sldr_yaw.setValue(output_roll)
+                output_pitch = scale(scaled_limits[0],
+                                     joint_limits["shoulder_pitch_min"], joint_limits["shoulder_pitch_max"],
+                                     0, 99)
+                output_roll = scale(scaled_limits[1],
+                                    joint_limits["shoulder_roll_min"], joint_limits["shoulder_roll_max"],
+                                    0, 99)
+
+                window.sldr_vertical.setValue(output_pitch)
+                window.sldr_horiz.setValue(output_roll)
+                window.lbl_sldr_vertical.setText("Pitch")
+                window.lbl_sldr_horiz.setText("Roll")
 
                 app.processEvents()
 
-                rad_scaled_angles = \
+                scaled_radians = \
                     [
-                        scaled_angles2[0] * -0.0174533,
-                        # scaled_angles2[1] * 0.0174533,
-                        scaled_angles2[2] * 0.0174533
+                        scaled_limits[0] * -0.0174533,
+                        scaled_limits[1] * 0.0174533
                     ]
 
-                naoModule.move_shoulder(rad_scaled_angles, hand)
+                naoModule.move_shoulder(scaled_radians, hand)
+                local_action_list.append({"type": hand + "_shoulder", "parameters": scaled_radians})
             elif gesture == 1:
                 # move elbow
                 # scale angles according to nao arm limits
-                scaled_angles2 = \
+                scaled_limits = \
                     [
-                        scale(scaled_angles1[0], -90, 90, -1, 1),
-                        scale(scaled_angles1[1], -90, 90, -120, 120),
-                        scale(scaled_angles1[2], -90, 90, -88.5, -2)
+                        scale(angles_scaled_height[1],  # yaw
+                              -90, 90,
+                              joint_limits["elbow_yaw_min"], joint_limits["elbow_yaw_max"]),
+                        scale(angles_scaled_height[2],  # roll
+                              -90, 90,
+                              joint_limits["elbow_roll_min"], joint_limits["elbow_roll_max"])
                     ]
 
-                # output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
-                output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
-                output_roll = scale(scaled_angles2[2], -88.5, -2, 0, 99)
-                window.sldr_pitch.setValue(output_roll)
-                window.sldr_yaw.setValue(output_yaw)
+                output_yaw = scale(scaled_limits[0],
+                                   joint_limits["elbow_yaw_min"], joint_limits["elbow_yaw_max"],
+                                   0, 99)
+                output_roll = scale(scaled_limits[1],
+                                    joint_limits["elbow_roll_min"], joint_limits["elbow_roll_max"],
+                                    0, 99)
+
+                window.sldr_vertical.setValue(output_roll)
+                window.sldr_horiz.setValue(output_yaw)
+                window.lbl_sldr_vertical.setText("Roll")
+                window.lbl_sldr_horiz.setText("Yaw")
 
                 app.processEvents()
 
-                rad_scaled_angles = \
+                scaled_radians = \
                     [
-                        scaled_angles2[0] * -0.0174533,
-                        # scaled_angles2[1] * 0.0174533,
-                        scaled_angles2[2] * 0.0174533
+                        scaled_limits[0] * -0.0174533,
+                        scaled_limits[1] * 0.0174533
                     ]
 
-                naoModule.move_elbow(rad_scaled_angles, hand)
+                naoModule.move_elbow(scaled_radians, hand)
+                local_action_list.append({"type": hand + "_elbow", "parameters": scaled_radians})
             elif gesture == 2:
                 # move wrist
                 # scale angles according to nao arm limits
-                scaled_angles2 = \
+                scaled_limits = \
                     [
-                        scale(scaled_angles1[0], -90, 90, -1, 1),
-                        scale(scaled_angles1[1], -90, 90, -1, 1),
-                        scale(scaled_angles1[2], -90, 90, -105, 105)
+                        scale(angles_scaled_height[2],  # roll
+                              -90, 90,
+                              joint_limits["wrist_roll_min"], joint_limits["wrist_roll_max"])
                     ]
 
-                # output_pitch = scale(scaled_angles2[0], -120, 120, 0, 99)
-                # output_yaw = scale(scaled_angles2[1], -105, 105, 0, 99)
-                output_roll = scale(scaled_angles2[2], -18, 76, 0, 99)
-                window.sldr_pitch.setValue(50)
-                window.sldr_yaw.setValue(output_roll)
+                output_roll = scale(scaled_limits[0],
+                                    joint_limits["wrist_roll_min"], joint_limits["wrist_roll_max"],
+                                    0, 99)
+
+                window.sldr_vertical.setValue(50)
+                window.sldr_horiz.setValue(output_roll)
+                window.lbl_sldr_vertical.setText("N/A")
+                window.lbl_sldr_horiz.setText("Roll")
 
                 app.processEvents()
 
-                rad_scaled_angles = \
+                scaled_radians = \
                     [
-                        # scaled_angles2[0] * -0.0174533,
-                        # scaled_angles2[1] * 0.0174533,
-                        scaled_angles2[2] * 0.0174533
+                        scaled_limits[0] * 0.0174533
                     ]
 
-                naoModule.move_wrist(rad_scaled_angles, hand)
+                naoModule.move_wrist(scaled_radians, hand)
+                local_action_list.append({"type": hand + "_wrist", "parameters": scaled_radians})
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
 
             app.processEvents()
         gesture = leapModule.get_hand_gesture()
+    record_action_list(local_action_list)
 
 
 # flag
-def record_command_list(local_command_list):
-    global command_list
-    command_list.append(local_command_list)
+def record_action_list(local_action_list):
+    global action_list
+    action_list.append(local_action_list)
 
 
 # flag
-def print_command_list(window):
+def print_action_list(window):
     list_view = window.wgt_command_list
     list_view.clear()
-    for local_command_list in command_list:
-        output_string = local_command_list[0]["type"] + " - " + str(len(local_command_list))
+    for local_action_list in action_list:
+        if local_action_list[0]["type"] in ("left_shoulder", "left_elbow", "left_wrist"):
+            output_string = "left arm - " + str(len(local_action_list))
+        elif local_action_list[0]["type"] in ("right_shoulder", "right_elbow", "right_wrist"):
+            output_string = "right arm - " + str(len(local_action_list))
+        else:
+            output_string = local_action_list[0]["type"] + " - " + str(len(local_action_list))
         list_view.addItem(output_string)
 
 
 # flag
-def parse_command(command, frame_rate):
-    if command["type"] == "head":
-        naoModule.rotate_head(command["parameters"])
-    elif command["type"] == "walk":
-        naoModule.move_walk_turn(command["parameters"][0], command["parameters"][1])
-    elif command["type"] == "say":
-        naoModule.say_phrase(command["parameters"][0])
-    elif command["type"] == "stand":
+def parse_action(action, frame_rate):
+    if action["type"] == "head":
+        naoModule.rotate_head(action["parameters"])
+    elif action["type"] == "walk":
+        naoModule.move_walk_turn(action["parameters"][0], action["parameters"][1])
+    elif action["type"] == "say":
+        naoModule.say_phrase(action["parameters"][0])
+    elif action["type"] == "stand":
         naoModule.posture_stand()
+    elif action["type"] == "left_shoulder":
+        naoModule.move_shoulder(action["parameters"], "left")
+    elif action["type"] == "left_elbow":
+        naoModule.move_elbow(action["parameters"], "left")
+    elif action["type"] == "left_wrist":
+        naoModule.move_wrist(action["parameters"], "left")
+    elif action["type"] == "right_shoulder":
+        naoModule.move_shoulder(action["parameters"], "right")
+    elif action["type"] == "right_elbow":
+        naoModule.move_elbow(action["parameters"], "right")
+    elif action["type"] == "right_wrist":
+        naoModule.move_wrist(action["parameters"], "right")
     else:
-        print "WIP: " + command["type"]
+        print "WIP: " + action["type"]
     time.sleep(frame_rate)
 
 
 # flag
-def play_all_actions():
+def play_all_actions(app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
-    for local_command_list in command_list:
-        for command in local_command_list:
-            parse_command(command, frame_rate)
+    for local_action_list in action_list:
+        for action in local_action_list:
+            parse_action(action, frame_rate)
+            app.processEvents()
 
 
 # flag
-def play_single_action(selected_index):
+def play_single_action(selected_index, app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
-    for command in command_list[selected_index]:
-        parse_command(command, frame_rate)
+    for action in action_list[selected_index]:
+        parse_action(action, frame_rate)
+        app.processEvents()
 
 
 # flag
 def move_action_up(selected_index):
-    command_list.insert(selected_index - 1, command_list.pop(selected_index))
+    action_list.insert(selected_index - 1, action_list.pop(selected_index))
 
 
 # flag
 def move_action_down(selected_index):
-    command_list.insert(selected_index + 1, command_list.pop(selected_index))
+    action_list.insert(selected_index + 1, action_list.pop(selected_index))
 
 
 # flag
 def delete_action(selected_index):
-    command_list.pop(selected_index)
+    action_list.pop(selected_index)
+
+
+# flag
+def load_actions(data):
+    import json
+    loaded_data = json.loads(data)
+    for local_action_list in loaded_data:
+        record_action_list(local_action_list)
+
+
+# flag
+def json_encode_actions():
+    import json
+    return json.JSONEncoder().encode(action_list)

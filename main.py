@@ -1,13 +1,14 @@
-import commandModule
-
-import sys
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtGui import QImage, QPainter, QWidget
+from PyQt4.QtGui import QImage, QPainter, QWidget, QFileDialog
+
 from gui.main_window import Ui_main_window
 from gui.status_window import Ui_status_window
 from gui.movement_window import Ui_movement_window
 from gui.camera_window import Ui_camera_window
 from gui.command_list_window import Ui_command_list_window
+
+import commandModule
+import sys
 
 
 class StatusWindow(QtGui.QMainWindow, Ui_status_window):
@@ -38,28 +39,64 @@ class CommandListWindow(QtGui.QMainWindow, Ui_command_list_window):
         self.btn_play_all.clicked.connect(self.btn_play_action_all_click)
         self.btn_move_up.clicked.connect(self.btn_move_up_click)
         self.btn_move_down.clicked.connect(self.btn_move_down_click)
+        self.btn_delete_action.clicked.connect(self.btn_delete_action_click)
+        self.btn_load_actions.clicked.connect(self.btn_load_actions_click)
+        self.btn_save_actions.clicked.connect(self.btn_save_actions_click)
 
     def btn_play_action_single_click(self):
-        selected_index = self.wgt_command_list.currentRow()
-        commandModule.play_single_action(selected_index)
+        try:
+            selected_index = self.wgt_command_list.selectedIndexes()[0].row()
+        except IndexError, e:
+            selected_index = -1
+        if selected_index != -1:
+            commandModule.play_single_action(selected_index, app)
 
     def btn_play_action_all_click(self):
-        commandModule.play_all_actions()
+        commandModule.play_all_actions(app)
 
     def btn_move_up_click(self):
-        selected_index = self.wgt_command_list.currentRow()
-        commandModule.move_action_up(selected_index)
-        commandModule.print_command_list(self.window())
+        try:
+            selected_index = self.wgt_command_list.selectedIndexes()[0].row()
+        except IndexError, e:
+            selected_index = -1
+        if selected_index != -1:
+            commandModule.move_action_up(selected_index)
+            commandModule.print_action_list(self.window())
 
     def btn_move_down_click(self):
-        selected_index = self.wgt_command_list.currentRow()
-        commandModule.move_action_down(selected_index)
-        commandModule.print_command_list(self.window())
+        try:
+            selected_index = self.wgt_command_list.selectedIndexes()[0].row()
+        except IndexError, e:
+            selected_index = -1
+        if selected_index != -1:
+            commandModule.move_action_down(selected_index)
+            commandModule.print_action_list(self.window())
 
     def btn_delete_action_click(self):
-        selected_index = self.wgt_command_list.currentRow()
-        commandModule.delete_action(selected_index)
-        commandModule.print_command_list(self.window())
+        try:
+            selected_index = self.wgt_command_list.selectedIndexes()[0].row()
+        except IndexError, e:
+            selected_index = -1
+        if selected_index != -1:
+            commandModule.delete_action(selected_index)
+            commandModule.print_action_list(self.window())
+
+    def btn_load_actions_click(self):
+        file_name = QFileDialog.getOpenFileName(self, "Load Actions", "actions/", "JSON (*.json)")
+        if file_name != "":
+            actions_file = open(file_name, 'r')
+            data = actions_file.read()
+            actions_file.close()
+            commandModule.load_actions(data)
+            commandModule.print_action_list(self.window())
+
+    def btn_save_actions_click(self):
+        file_name = QFileDialog.getSaveFileName(self, "Save Actions", "", "JSON (*.json)")
+        if file_name != "":
+            actions_file = open(file_name, 'w')
+            content = commandModule.json_encode_actions()
+            actions_file.write(content)
+            actions_file.close()
 
 
 class CameraWindow(QtGui.QMainWindow, Ui_camera_window):
@@ -133,6 +170,7 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def btn_head_click(self):
         movement_window = MovementWindow(self)
         movement_window.show()
+        app.processEvents()
         commandModule.nao_rotate_head(movement_window, app)
         movement_window.close()
 
@@ -145,6 +183,7 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def btn_nao_walk_click(self):
         movement_window = MovementWindow(self)
         movement_window.show()
+        app.processEvents()
         commandModule.nao_stand()
         commandModule.nao_walk(movement_window, app)
         movement_window.close()
@@ -156,18 +195,20 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
     def btn_nao_larm_click(self):
         movement_window = MovementWindow(self)
         movement_window.show()
+        app.processEvents()
         commandModule.nao_arm(movement_window, app, "left")
         movement_window.close()
 
     def btn_nao_rarm_click(self):
         movement_window = MovementWindow(self)
         movement_window.show()
+        app.processEvents()
         commandModule.nao_arm(movement_window, app, "right")
         movement_window.close()
 
     def btn_command_list_click(self):
         command_list_window = CommandListWindow(self)
-        commandModule.print_command_list(command_list_window)
+        commandModule.print_action_list(command_list_window)
         command_list_window.show()
 
     def btn_nao_test_click(self):

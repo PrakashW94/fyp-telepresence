@@ -34,7 +34,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSlider" name="sldr_yaw">
+  <widget class="QSlider" name="sldr_horiz">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -47,7 +47,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QSlider" name="sldr_pitch">
+  <widget class="QSlider" name="sldr_vertical">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -76,7 +76,43 @@
   <widget class="QLabel" name="lbl_x_sliders">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>30</x>
+     <y>60</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Hand Rotation</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_height_slider">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>60</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Hand Height</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_sldr_vertical">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
      <y>60</y>
      <width>81</width>
      <height>20</height>
@@ -84,149 +120,61 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Rotation</string>
+    <string>lbl_sldr_vert</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="lbl_height_slider">
+  <widget class="QLabel" name="lbl_sldr_horiz">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>60</y>
+     <x>15</x>
+     <y>150</y>
      <width>61</width>
      <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Height</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_yaw_max">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>60</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
      <pointsize>10</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>30</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_yaw_min">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>240</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>-39</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_pitch_min">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>150</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>-120</string>
+    <string>lbl_sldr_horiz</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="lbl_pitch_max">
+  <widget class="QLabel" name="lbl_wait">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>150</y>
-     <width>46</width>
-     <height>13</height>
+     <x>0</x>
+     <y>52</y>
+     <width>421</width>
+     <height>231</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
-   <property name="text">
-    <string>120</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_height_max">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>60</y>
-     <width>21</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <property name="text">
-    <string>100</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_height_min">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>240</y>
-     <width>21</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>1</string>
+    <string>Waiting for hand...</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

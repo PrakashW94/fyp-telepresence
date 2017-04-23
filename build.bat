@@ -1,0 +1,1 @@
+pyinstaller main.py -p LeapSDK/lib -p LeapSDK/lib/x86
