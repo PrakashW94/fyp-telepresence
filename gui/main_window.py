@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Sat Apr 22 12:57:05 2017
+# Created: Sun Apr 23 21:58:13 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -94,10 +94,10 @@ class Ui_main_window(object):
         self.btn_nao_camera.setGeometry(QtCore.QRect(10, 30, 131, 31))
         self.btn_nao_camera.setObjectName(_fromUtf8("btn_nao_camera"))
         self.btn_status = QtGui.QPushButton(self.group_misc)
-        self.btn_status.setGeometry(QtCore.QRect(10, 70, 131, 31))
+        self.btn_status.setGeometry(QtCore.QRect(10, 110, 131, 31))
         self.btn_status.setObjectName(_fromUtf8("btn_status"))
         self.btn_command_list = QtGui.QPushButton(self.group_misc)
-        self.btn_command_list.setGeometry(QtCore.QRect(10, 110, 131, 31))
+        self.btn_command_list.setGeometry(QtCore.QRect(10, 70, 131, 31))
         self.btn_command_list.setObjectName(_fromUtf8("btn_command_list"))
 
         self.retranslateUi(main_window)

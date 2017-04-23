@@ -17,10 +17,18 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setupUi(self)
         self.sldr_volume.sliderReleased.connect(self.sldr_volume_changed)
+        self.btn_ip.clicked.connect(self.btn_ip_clicked)
+        self.btn_port.clicked.connect(self.btn_port_clicked)
 
     def sldr_volume_changed(self):
         value = self.sldr_volume.value()
         commandModule.nao_set_volume(value)
+
+    def btn_ip_clicked(self):
+        commandModule.nao_set_ip(self.edit_nao_ip.text())
+
+    def btn_port_clicked(self):
+        commandModule.nao_set_port(self.edit_nao_port.text())
 
 
 class MovementWindow(QtGui.QMainWindow, Ui_movement_window):

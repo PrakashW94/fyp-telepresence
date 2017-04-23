@@ -82,13 +82,24 @@ def count_hands():
 
 # flag
 def get_service_status():
-    return controller.is_connected
+    return controller.is_service_connected()
 
 
 # flag
 def get_tracking_status():
+    return not controller.is_paused()
+
+
+# flag
+def get_lighting_status():
     device = controller.devices[0]
-    return device.is_streaming
+    return not device.is_lighting_bad
+
+
+# flag
+def get_smudge_status():
+    device = controller.devices[0]
+    return not device.is_smudged
 
 
 # flag

@@ -42,6 +42,8 @@ def test_func():
 def update_status_window(window, app):
     leap_service_status = leapModule.get_service_status()
     leap_tracking_status = leapModule.get_tracking_status()
+    leap_lighting_status = leapModule.get_lighting_status()
+    leap_smudge_status = leapModule.get_smudge_status()
 
     if leap_service_status:
         window.edit_leap_service.setText("CONNECTED")
@@ -57,33 +59,68 @@ def update_status_window(window, app):
         window.edit_leap_tracking.setText("NOT CONNECTED")
         window.edit_leap_tracking.setStyleSheet("background-color:red")
 
+    if leap_lighting_status:
+        window.edit_leap_lighting.setText("GOOD")
+        window.edit_leap_lighting.setStyleSheet("background-color:green")
+    else:
+        window.edit_leap_lighting.setText("BAD")
+        window.edit_leap_lighting.setStyleSheet("background-color:red")
+
+    if leap_smudge_status:
+        window.edit_leap_smudge.setText("GOOD")
+        window.edit_leap_smudge.setStyleSheet("background-color:green")
+    else:
+        window.edit_leap_smudge.setText("BAD")
+        window.edit_leap_smudge.setStyleSheet("background-color:red")
+
     # Check connection to robot
     nao_connection_status = naoModule.get_connection_status()
 
     if nao_connection_status:
         window.edit_nao_connection.setText("CONNECTED")
         window.edit_nao_connection.setStyleSheet("background-color:green")
-        # TODO uncomment when working with real robot or implement virtual robot check
-        # nao_battery = naoModule.get_battery()
-        # nao_volume = naoModule.get_volume()
-        # window.pbar_battery.setValue(nao_battery)
-        # window.sldr_volume.setValue(nao_volume)
+        if naoModule.naoIP != "127.0.0.1":
+            nao_battery = naoModule.get_battery()
+            nao_volume = naoModule.get_volume()
+            window.pbar_battery.setValue(nao_battery)
+            window.sldr_volume.setValue(nao_volume)
+        else:
+            window.pbar_battery.setValue(0)
+            window.pbar_battery.setEnabled(False)
+            window.sldr_volume.setEnabled(False)
     else:
         window.edit_nao_connection.setText("NOT CONNECTED")
         window.edit_nao_connection.setStyleSheet("background-color:red")
         window.pbar_battery.setValue(0)
         window.sldr_volume.setValue(0)
 
-    while window.isVisible():
-        bandwidth_status = leapModule.get_bandwidth_status()
-        window.edit_leap_bandwidth.setText(str(bandwidth_status))
-        if bandwidth_status > 100:
-            window.edit_leap_bandwidth.setStyleSheet("background-color:green")
-        elif 60 < bandwidth_status < 100:
-            window.edit_leap_bandwidth.setStyleSheet("background-color:orange")
-        else:
-            window.edit_leap_bandwidth.setStyleSheet("background-color:red")
-        app.processEvents()
+    window.edit_nao_ip.setText(naoModule.naoIP)
+    window.edit_nao_port.setText(str(naoModule.naoPort))
+
+    if leap_tracking_status:
+        while window.isVisible():
+            bandwidth_status = leapModule.get_bandwidth_status()
+            window.edit_leap_bandwidth.setText(str(bandwidth_status))
+            if bandwidth_status > 100:
+                window.edit_leap_bandwidth.setStyleSheet("background-color:green")
+            elif 60 < bandwidth_status < 100:
+                window.edit_leap_bandwidth.setStyleSheet("background-color:orange")
+            else:
+                window.edit_leap_bandwidth.setStyleSheet("background-color:red")
+            app.processEvents()
+    else:
+        window.edit_leap_bandwidth.setStyleSheet("background-color:red")
+        window.edit_leap_bandwidth.setText("N/A")
+
+
+# flag
+def nao_set_ip(new_ip):
+    naoModule.naoIP = new_ip
+
+
+# flag
+def nao_set_port(new_port):
+    naoModule.naoPort = int(new_port)
 
 
 # flag
@@ -363,7 +400,8 @@ def nao_arm(window, app, hand):
 
             app.processEvents()
         gesture = leapModule.get_hand_gesture()
-    record_action_list(local_action_list)
+    if len(local_action_list) > 0:
+        record_action_list(local_action_list)
 
 
 # flag
@@ -376,13 +414,14 @@ def record_action_list(local_action_list):
 def print_action_list(window):
     list_view = window.wgt_command_list
     list_view.clear()
+    fps = leapModule.get_bandwidth_status()
     for local_action_list in action_list:
         if local_action_list[0]["type"] in ("left_shoulder", "left_elbow", "left_wrist"):
-            output_string = "left arm - " + str(len(local_action_list))
+            output_string = "left arm - " + "{:.2f}".format(len(local_action_list)/fps) + "s"
         elif local_action_list[0]["type"] in ("right_shoulder", "right_elbow", "right_wrist"):
-            output_string = "right arm - " + str(len(local_action_list))
+            output_string = "right arm - " + "{:.2f}".format(len(local_action_list)/fps) + "s"
         else:
-            output_string = local_action_list[0]["type"] + " - " + str(len(local_action_list))
+            output_string = local_action_list[0]["type"] + " - " + "{:.2f}".format(len(local_action_list)/fps) + "s"
         list_view.addItem(output_string)
 
 
