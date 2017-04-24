@@ -1,11 +1,17 @@
 from naoqi import ALProxy
 
-# naoIP = "169.254.108.110"  # wired blue
+naoIP = "127.0.0.1"  # wired blue
 # naoIP = "169.254.254.250" # wired red
 # naoIP = "158.125.103.28"  # wireless blue
-# naoPort = 9559 # real robot
-naoIP = "127.0.0.1"
-naoPort = 63112
+# naoIP = "127.0.0.1"  # virtual robot
+naoPort = 55204
+camera_quality = 0
+
+
+# flag
+def set_stiffness():
+    motion = ALProxy("ALMotion", naoIP, naoPort)
+    motion.stiffnessInterpolation("Body", 1.0, 1.0)
 
 
 # flag
@@ -69,7 +75,6 @@ def set_volume(value):
 def rotate_head(angles):
     motion = ALProxy("ALMotion", naoIP, naoPort)
     joints = ["HeadPitch", "HeadYaw"]
-    # angles = [0.2, -0.2]
     fraction_max_speed = 0.1
     motion.setAngles(joints, angles, fraction_max_speed)
 
@@ -78,7 +83,14 @@ def rotate_head(angles):
 def initialise_video_proxy(widget):
     import vision_definitions
     widget._video_proxy = ALProxy("ALVideoDevice", naoIP, naoPort)
-    resolution = vision_definitions.kVGA
+
+    if camera_quality == 0:
+        resolution = vision_definitions.kQQQVGA
+    elif camera_quality == 1:
+        resolution = vision_definitions.kQQVGA
+    elif camera_quality == 2:
+        resolution = vision_definitions.kQVGA
+
     colour_space = vision_definitions.kRGBColorSpace
     fps = 30
     widget._img_client = widget._video_proxy.subscribe("_client", resolution, colour_space, fps)

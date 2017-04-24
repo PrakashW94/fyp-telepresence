@@ -4,11 +4,10 @@ import time
 
 action_list = []
 
-# leapModule.connect()
-
 
 # flag
 def nao_stand():
+    naoModule.set_stiffness()
     naoModule.posture_stand()
     local_action_list = [{"type": "stand", "parameters": [-1]}]
     record_action_list(local_action_list)
@@ -80,17 +79,27 @@ def update_status_window(window, app):
         window.edit_nao_connection.setText("CONNECTED")
         window.edit_nao_connection.setStyleSheet("background-color:green")
         if naoModule.naoIP != "127.0.0.1":
+            window.pbar_battery.setEnabled(True)
+            window.sldr_volume.setEnabled(True)
             nao_battery = naoModule.get_battery()
             nao_volume = naoModule.get_volume()
             window.pbar_battery.setValue(nao_battery)
             window.sldr_volume.setValue(nao_volume)
+            window.cbo_nao_camera.setEnabled(True)
+            window.cbo_nao_camera.setCurrentIndex(naoModule.camera_quality)
         else:
             window.pbar_battery.setValue(0)
+            window.sldr_volume.setValue(0)
             window.pbar_battery.setEnabled(False)
             window.sldr_volume.setEnabled(False)
+            window.cbo_nao_camera.setEnabled(False)
     else:
         window.edit_nao_connection.setText("NOT CONNECTED")
         window.edit_nao_connection.setStyleSheet("background-color:red")
+        window.pbar_battery.setEnabled(False)
+        window.sldr_volume.setEnabled(False)
+        window.cbo_nao_camera.setEnabled(False)
+
         window.pbar_battery.setValue(0)
         window.sldr_volume.setValue(0)
 
@@ -115,12 +124,17 @@ def update_status_window(window, app):
 
 # flag
 def nao_set_ip(new_ip):
-    naoModule.naoIP = new_ip
+    naoModule.naoIP = str(new_ip)
 
 
 # flag
 def nao_set_port(new_port):
     naoModule.naoPort = int(new_port)
+
+
+# flag
+def nao_set_camera_quality(quality):
+    naoModule.camera_quality = quality
 
 
 # flag
@@ -145,6 +159,7 @@ def nao_rotate_head(window, app):
     close_counter = 0
     local_action_list = []
 
+    naoModule.set_stiffness()
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
@@ -176,9 +191,7 @@ def nao_rotate_head(window, app):
             window.sldr_height.setValue(output_height)
 
             app.processEvents()
-            # print "input, " + str(angles[0]) + ", output, " + str(scaled_angles2[0])
-            # print "pitch: " + str(scaled_angles[1]) + ", yaw: " + str(scaled_angles[0])
-            rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * 0.0174533]
+            rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * -0.0174533]
             naoModule.rotate_head(rad_scaled_angles)
             local_action_list.append({"type": "head", "parameters": rad_scaled_angles})
         extended_fingers = leapModule.get_extended_fingers()
@@ -201,6 +214,8 @@ def nao_walk(window, app):
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
     local_action_list = []
+
+    naoModule.set_stiffness()
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
@@ -280,6 +295,8 @@ def nao_arm(window, app, hand):
     gesture = leapModule.get_hand_gesture()
     close_counter = 0
     local_action_list = []
+
+    naoModule.set_stiffness()
     while close_counter < 300:
         if gesture == 3:
             close_counter += 1
@@ -455,6 +472,7 @@ def parse_action(action, frame_rate):
 # flag
 def play_all_actions(app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
+    naoModule.set_stiffness()
     for local_action_list in action_list:
         for action in local_action_list:
             parse_action(action, frame_rate)
@@ -464,6 +482,7 @@ def play_all_actions(app):
 # flag
 def play_single_action(selected_index, app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
+    naoModule.set_stiffness()
     for action in action_list[selected_index]:
         parse_action(action, frame_rate)
         app.processEvents()

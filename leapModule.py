@@ -10,42 +10,6 @@ last_frame = 0
 
 
 # flag
-def connect():
-    print "Connecting..."
-    while not controller.is_connected:
-        pass
-    else:
-        print "Connected"
-
-
-def get_roll():
-    frame = controller.frame()
-    while frame.id < 0:
-        frame = controller.frame()
-
-    hand = frame.hands[0]
-    return int(hand.palm_normal.roll * Leap.RAD_TO_DEG)
-
-
-def get_pitch():
-    global last_frame
-    frame = controller.frame()
-    while last_frame == frame.id:
-        frame = controller.frame()
-    last_frame = frame.id
-    hand = frame.hands[0]
-    return int(hand.direction.pitch * Leap.RAD_TO_DEG)
-
-
-def get_yaw():
-    frame = controller.frame()
-    while frame.id < 0:
-        frame = controller.frame()
-    hand = frame.hands[0]
-    return hand.direction.yaw
-
-
-# flag
 def get_pitch_yaw_roll():
     global last_frame
     frame = controller.frame()

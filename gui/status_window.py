@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'status_window.ui'
 #
-# Created: Sun Apr 23 22:31:15 2017
+# Created: Mon Apr 24 12:55:52 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_status_window(object):
     def setupUi(self, status_window):
         status_window.setObjectName(_fromUtf8("status_window"))
-        status_window.resize(473, 240)
+        status_window.resize(473, 270)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -122,7 +122,7 @@ class Ui_status_window(object):
         self.edit_leap_bandwidth.setReadOnly(True)
         self.edit_leap_bandwidth.setObjectName(_fromUtf8("edit_leap_bandwidth"))
         self.group_nao = QtGui.QGroupBox(status_window)
-        self.group_nao.setGeometry(QtCore.QRect(240, 50, 221, 181))
+        self.group_nao.setGeometry(QtCore.QRect(240, 50, 221, 211))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.group_nao.setFont(font)
@@ -194,6 +194,19 @@ class Ui_status_window(object):
         self.btn_port = QtGui.QPushButton(self.group_nao)
         self.btn_port.setGeometry(QtCore.QRect(170, 150, 41, 20))
         self.btn_port.setObjectName(_fromUtf8("btn_port"))
+        self.cbo_nao_camera = QtGui.QComboBox(self.group_nao)
+        self.cbo_nao_camera.setGeometry(QtCore.QRect(80, 180, 131, 22))
+        self.cbo_nao_camera.setObjectName(_fromUtf8("cbo_nao_camera"))
+        self.cbo_nao_camera.addItem(_fromUtf8(""))
+        self.cbo_nao_camera.addItem(_fromUtf8(""))
+        self.cbo_nao_camera.addItem(_fromUtf8(""))
+        self.lbl_nao_camera = QtGui.QLabel(self.group_nao)
+        self.lbl_nao_camera.setGeometry(QtCore.QRect(10, 170, 71, 41))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.lbl_nao_camera.setFont(font)
+        self.lbl_nao_camera.setWordWrap(True)
+        self.lbl_nao_camera.setObjectName(_fromUtf8("lbl_nao_camera"))
 
         self.retranslateUi(status_window)
         QtCore.QMetaObject.connectSlotsByName(status_window)
@@ -221,4 +234,8 @@ class Ui_status_window(object):
         self.lbl_nao_port.setText(_translate("status_window", "Port:", None))
         self.btn_ip.setText(_translate("status_window", "Save", None))
         self.btn_port.setText(_translate("status_window", "Save", None))
+        self.cbo_nao_camera.setItemText(0, _translate("status_window", "80 x 60", None))
+        self.cbo_nao_camera.setItemText(1, _translate("status_window", "160 x 120", None))
+        self.cbo_nao_camera.setItemText(2, _translate("status_window", "320 x 240", None))
+        self.lbl_nao_camera.setText(_translate("status_window", "Camera Resolution: ", None))
 

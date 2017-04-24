@@ -19,6 +19,7 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
         self.sldr_volume.sliderReleased.connect(self.sldr_volume_changed)
         self.btn_ip.clicked.connect(self.btn_ip_clicked)
         self.btn_port.clicked.connect(self.btn_port_clicked)
+        self.cbo_nao_camera.currentIndexChanged.connect(self.cbo_nao_camera_changed)
 
     def sldr_volume_changed(self):
         value = self.sldr_volume.value()
@@ -29,6 +30,9 @@ class StatusWindow(QtGui.QMainWindow, Ui_status_window):
 
     def btn_port_clicked(self):
         commandModule.nao_set_port(self.edit_nao_port.text())
+
+    def cbo_nao_camera_changed(self):
+        commandModule.nao_set_camera_quality(self.cbo_nao_camera.currentIndex())
 
 
 class MovementWindow(QtGui.QMainWindow, Ui_movement_window):
