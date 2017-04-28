@@ -33,7 +33,6 @@ def scale(value, old_min, old_max, new_min, new_max):
 
 
 def test_func():
-    naoModule.move_walk(1)
     print "Test function complete!"
 
 
@@ -175,14 +174,33 @@ def nao_rotate_head(window, app):
                     scale(angles[1], -scaled_height, scaled_height, -90, 90)
                 ]
 
+            # calculate pitch limitations based on yaw
+            x = scale(scaled_angles1[1], -90, 90, -120, 120)
+            pitch_max = \
+                (2 * 10 ** -7) * (x ** 4) \
+                + (2 * 10 ** -17) * (x ** 3) \
+                - 0.0039 * (x ** 2) \
+                + (7 * 10 ** -14) * x \
+                + 27.918 \
+                - 1
+
+            pitch_min = \
+                - (3 * 10 ** -7) * (x ** 4) \
+                - (9 * 10 ** -18) * (x ** 3) \
+                + 0.005 * (x ** 2) \
+                + (6 * 10 ** -13) * x \
+                + 42.134 \
+                * -1
+            print "yaw: " + str(x) + ", min: " + str(pitch_min) + ", max: " + str(pitch_max)
+
             # scale angles according to nao head limits
             scaled_angles2 = \
                 [
-                    scale(scaled_angles1[0], -90, 90, -39, 30),
+                    scale(scaled_angles1[0], -90, 90, pitch_min, pitch_max),
                     scale(scaled_angles1[1], -90, 90, -120, 120)
                 ]
 
-            output_pitch = scale(scaled_angles2[0], -39, 30, 0, 99)
+            output_pitch = scale(scaled_angles2[0], pitch_min, pitch_max, 0, 99)
             output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
             window.sldr_vertical.setValue(output_pitch)
             window.sldr_horiz.setValue(output_yaw)

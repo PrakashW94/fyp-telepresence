@@ -173,6 +173,7 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         self.btn_nao_larm.clicked.connect(self.btn_nao_larm_click)
         self.btn_nao_rarm.clicked.connect(self.btn_nao_rarm_click)
         self.btn_command_list.clicked.connect(self.btn_command_list_click)
+        self.btn_test.clicked.connect(self.btn_nao_test_click)
 
     def btn_status_click(self):
         status_window = StatusWindow(self)
@@ -224,7 +225,7 @@ class MainWindow(QtGui.QMainWindow, Ui_main_window):
         command_list_window.show()
 
     def btn_nao_test_click(self):
-        print "Test button"
+        commandModule.test_func()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

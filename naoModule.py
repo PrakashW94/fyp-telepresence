@@ -1,10 +1,7 @@
 from naoqi import ALProxy
 
 naoIP = "127.0.0.1"  # wired blue
-# naoIP = "169.254.254.250" # wired red
-# naoIP = "158.125.103.28"  # wireless blue
-# naoIP = "127.0.0.1"  # virtual robot
-naoPort = 55204
+naoPort = 55422
 camera_quality = 0
 
 
