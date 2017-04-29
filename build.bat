@@ -1,1 +1,1 @@
-pyinstaller main.py -p LeapSDK/lib -p LeapSDK/lib/x86 --noconsole --onefile
+pyinstaller main.py -p LeapSDK/lib -p LeapSDK/lib/x86 --noconsole --onefile --clean

@@ -2,80 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ce1de0a-9186-41ba-997c-78bb8f59298f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/main/main.exe" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/main/out00-COLLECT.toc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/Leap.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/LeapPython.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/MSVCP100.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/MSVCP120.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/MSVCR100.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/MSVCR120.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/Microsoft.VC90.CRT.manifest" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/PyQt4.QtCore.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/PyQt4.QtGui.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/QtCore4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/QtGui4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/QtOpenGL4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/QtSvg4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/QtXml4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_allog.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_ctypes.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_hashlib.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_inaoqi.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_qi.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_socket.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/_ssl.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_chrono-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_date_time-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_filesystem-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_locale-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_program_options-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_python-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_regex-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_signals-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_system-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/boost_thread-vc100-mt-1_55.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/bz2.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/main.exe" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/main.exe.manifest" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/msvcm90.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/msvcp90.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/msvcr90.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/pthreadVCE2.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/pyexpat.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/python27.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/pywintypes27.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qi.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qimessaging.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qipython.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qitype.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/accessible/qtaccessiblewidgets4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/codecs/qcncodecs4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/codecs/qjpcodecs4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/codecs/qkrcodecs4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/codecs/qtwcodecs4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/graphicssystems/qglgraphicssystem4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/iconengines/qsvgicon4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qgif4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qico4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qjpeg4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qmng4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qsvg4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qtga4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/qt4_plugins/imageformats/qtiff4.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/select.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/sip.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/unicodedata.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/win32api.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/win32evtlog.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/win32pipe.pyd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main/win32wnet.pyd" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/main/out00-PKG.pkg" afterPath="$PROJECT_DIR$/build/main/out00-PKG.pkg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/main/out00-PYZ.pyz" afterPath="$PROJECT_DIR$/build/main/out00-PYZ.pyz" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/main.exe" afterPath="$PROJECT_DIR$/dist/main.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/main.exe" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.bat" afterPath="$PROJECT_DIR$/build.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/main/out00-EXE.toc" afterPath="$PROJECT_DIR$/build/main/out00-EXE.toc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commandModule.py" afterPath="$PROJECT_DIR$/commandModule.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.spec" afterPath="$PROJECT_DIR$/main.spec" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -147,7 +77,7 @@
             <entry file="file://$PROJECT_DIR$/leapModule.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="472">
-                  <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+                  <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
                   <folding>
                     <element signature="e#183#546#0" expanded="false" />
                     <element signature="e#578#742#0" expanded="false" />
@@ -183,7 +113,7 @@
             <entry file="file://$PROJECT_DIR$/commandModule.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="92">
-                  <caret line="134" column="0" lean-forward="true" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+                  <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
                   <folding>
                     <element signature="e#95#256#0" expanded="false" />
                     <element signature="e#298#448#0" expanded="false" />
@@ -487,7 +417,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="32" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.17549168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -2317,7 +2247,7 @@
     <entry file="file://$PROJECT_DIR$/leapModule.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
             <element signature="e#183#546#0" expanded="false" />
             <element signature="e#578#742#0" expanded="false" />
@@ -2337,7 +2267,7 @@
     <entry file="file://$PROJECT_DIR$/commandModule.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
-          <caret line="134" column="0" lean-forward="true" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
           <folding>
             <element signature="e#95#256#0" expanded="false" />
             <element signature="e#298#448#0" expanded="false" />
