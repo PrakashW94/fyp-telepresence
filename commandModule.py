@@ -39,36 +39,48 @@ def test_func():
 # flag
 def update_status_window(window, app):
     leap_service_status = leapModule.get_service_status()
-    leap_tracking_status = leapModule.get_tracking_status()
-    leap_lighting_status = leapModule.get_lighting_status()
-    leap_smudge_status = leapModule.get_smudge_status()
 
     if leap_service_status:
         window.edit_leap_service.setText("CONNECTED")
         window.edit_leap_service.setStyleSheet("background-color:green")
+
+        leap_tracking_status = leapModule.get_tracking_status()
+
+        if leap_tracking_status:
+            window.edit_leap_tracking.setText("CONNECTED")
+            window.edit_leap_tracking.setStyleSheet("background-color:green")
+
+            leap_lighting_status = leapModule.get_lighting_status()
+            leap_smudge_status = leapModule.get_smudge_status()
+
+            if leap_lighting_status:
+                window.edit_leap_lighting.setText("GOOD")
+                window.edit_leap_lighting.setStyleSheet("background-color:green")
+            else:
+                window.edit_leap_lighting.setText("BAD")
+                window.edit_leap_lighting.setStyleSheet("background-color:red")
+
+            if leap_smudge_status:
+                window.edit_leap_smudge.setText("GOOD")
+                window.edit_leap_smudge.setStyleSheet("background-color:green")
+            else:
+                window.edit_leap_smudge.setText("BAD")
+                window.edit_leap_smudge.setStyleSheet("background-color:red")
+        else:
+            window.edit_leap_tracking.setText("NOT CONNECTED")
+            window.edit_leap_tracking.setStyleSheet("background-color:red")
+            window.edit_leap_lighting.setText("NOT CONNECTED")
+            window.edit_leap_lighting.setStyleSheet("background-color:red")
+            window.edit_leap_smudge.setText("NOT CONNECTED")
+            window.edit_leap_smudge.setStyleSheet("background-color:red")
     else:
         window.edit_leap_service.setText("NOT CONNECTED")
         window.edit_leap_service.setStyleSheet("background-color:red")
-
-    if leap_tracking_status:
-        window.edit_leap_tracking.setText("CONNECTED")
-        window.edit_leap_tracking.setStyleSheet("background-color:green")
-    else:
         window.edit_leap_tracking.setText("NOT CONNECTED")
         window.edit_leap_tracking.setStyleSheet("background-color:red")
-
-    if leap_lighting_status:
-        window.edit_leap_lighting.setText("GOOD")
-        window.edit_leap_lighting.setStyleSheet("background-color:green")
-    else:
-        window.edit_leap_lighting.setText("BAD")
+        window.edit_leap_lighting.setText("NOT CONNECTED")
         window.edit_leap_lighting.setStyleSheet("background-color:red")
-
-    if leap_smudge_status:
-        window.edit_leap_smudge.setText("GOOD")
-        window.edit_leap_smudge.setStyleSheet("background-color:green")
-    else:
-        window.edit_leap_smudge.setText("BAD")
+        window.edit_leap_smudge.setText("NOT CONNECTED")
         window.edit_leap_smudge.setStyleSheet("background-color:red")
 
     # Check connection to robot
