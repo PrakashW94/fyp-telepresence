@@ -5,7 +5,7 @@ import time
 action_list = []
 
 
-# flag
+# make nao stand
 def nao_stand():
     naoModule.set_stiffness()
     naoModule.posture_stand()
@@ -13,14 +13,14 @@ def nao_stand():
     record_action_list(local_action_list)
 
 
-# flag
+# make nao say phrase
 def nao_say(phrase_to_say):
     naoModule.say_phrase(phrase_to_say)
     local_action_list = [{"type": "say", "parameters": [phrase_to_say]}]
     record_action_list(local_action_list)
 
 
-# flag
+# scale value to new range
 def scale(value, old_min, old_max, new_min, new_max):
     old_range = old_max - old_min
     new_range = new_max - new_min
@@ -32,11 +32,12 @@ def scale(value, old_min, old_max, new_min, new_max):
     return new_value
 
 
+# test function
 def test_func():
     print "Test function complete!"
 
 
-# flag
+# update the status window ui elements
 def update_status_window(window, app):
     leap_service_status = leapModule.get_service_status()
 
@@ -50,6 +51,7 @@ def update_status_window(window, app):
             window.edit_leap_tracking.setText("CONNECTED")
             window.edit_leap_tracking.setStyleSheet("background-color:green")
 
+            # if tracking, check tracking quality
             leap_lighting_status = leapModule.get_lighting_status()
             leap_smudge_status = leapModule.get_smudge_status()
 
@@ -89,7 +91,7 @@ def update_status_window(window, app):
     if nao_connection_status:
         window.edit_nao_connection.setText("CONNECTED")
         window.edit_nao_connection.setStyleSheet("background-color:green")
-        if naoModule.naoIP != "127.0.0.1":
+        if naoModule.naoIP != "127.0.0.1":  # not virtual robot
             window.pbar_battery.setEnabled(True)
             window.sldr_volume.setEnabled(True)
             nao_battery = naoModule.get_battery()
@@ -98,7 +100,7 @@ def update_status_window(window, app):
             window.sldr_volume.setValue(nao_volume)
             window.cbo_nao_camera.setEnabled(True)
             window.cbo_nao_camera.setCurrentIndex(naoModule.camera_quality)
-        else:
+        else:  # functionality not available on virtual robot
             window.pbar_battery.setValue(0)
             window.sldr_volume.setValue(0)
             window.pbar_battery.setEnabled(False)
@@ -117,7 +119,7 @@ def update_status_window(window, app):
     window.edit_nao_ip.setText(naoModule.naoIP)
     window.edit_nao_port.setText(str(naoModule.naoPort))
 
-    if leap_tracking_status:
+    if leap_tracking_status:  # update leap motion bandwidth
         while window.isVisible():
             bandwidth_status = leapModule.get_bandwidth_status()
             window.edit_leap_bandwidth.setText(str(bandwidth_status))
@@ -128,33 +130,34 @@ def update_status_window(window, app):
             else:
                 window.edit_leap_bandwidth.setStyleSheet("background-color:red")
             app.processEvents()
+            # process ui update events
     else:
         window.edit_leap_bandwidth.setStyleSheet("background-color:red")
         window.edit_leap_bandwidth.setText("N/A")
 
 
-# flag
+# update up address
 def nao_set_ip(new_ip):
     naoModule.naoIP = str(new_ip)
 
 
-# flag
+# update port
 def nao_set_port(new_port):
     naoModule.naoPort = int(new_port)
 
 
-# flag
+# update camera quality
 def nao_set_camera_quality(quality):
     naoModule.camera_quality = quality
 
 
-# flag
+# update volume
 def nao_set_volume(value):
     naoModule.set_volume(value)
     naoModule.say_phrase("My volume is now " + str(value))
 
 
-# flag
+# nao rotate head
 def nao_rotate_head(window, app):
     hands = 0
 
@@ -165,6 +168,7 @@ def nao_rotate_head(window, app):
     window.lbl_sldr_vertical.setText("Yaw")
     window.lbl_sldr_horiz.setText("Pitch")
     app.processEvents()
+    # setup ui for motion
 
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
@@ -174,6 +178,7 @@ def nao_rotate_head(window, app):
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
+            # if fist gesture, close window
         else:
             height = leapModule.get_height()
             scaled_height = scale(height, 100, 400, 30, 90)
@@ -203,7 +208,6 @@ def nao_rotate_head(window, app):
                 + (6 * 10 ** -13) * x \
                 + 42.134 \
                 * -1
-            print "yaw: " + str(x) + ", min: " + str(pitch_min) + ", max: " + str(pitch_max)
 
             # scale angles according to nao head limits
             scaled_angles2 = \
@@ -212,24 +216,27 @@ def nao_rotate_head(window, app):
                     scale(scaled_angles1[1], -90, 90, -120, 120)
                 ]
 
+            # scale angles and height according to output limits and update ui
             output_pitch = scale(scaled_angles2[0], pitch_min, pitch_max, 0, 99)
             output_yaw = scale(scaled_angles2[1], -120, 120, 0, 99)
             window.sldr_vertical.setValue(output_pitch)
             window.sldr_horiz.setValue(output_yaw)
-
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
-
             app.processEvents()
+
+            # convert angles to radian and send to nao
             rad_scaled_angles = [scaled_angles2[0] * -0.0174533, scaled_angles2[1] * -0.0174533]
             naoModule.rotate_head(rad_scaled_angles)
+
+            # record action
             local_action_list.append({"type": "head", "parameters": rad_scaled_angles})
         extended_fingers = leapModule.get_extended_fingers()
     if len(local_action_list) > 0:
         record_action_list(local_action_list)
 
 
-# flag
+# nao walk
 def nao_walk(window, app):
     hands = 0
 
@@ -240,6 +247,7 @@ def nao_walk(window, app):
     window.lbl_sldr_vertical.setText("Yaw")
     window.lbl_sldr_horiz.setText("Pitch")
     app.processEvents()
+    # prepare ui for motion
 
     extended_fingers = leapModule.get_extended_fingers()
     close_counter = 0
@@ -249,6 +257,7 @@ def nao_walk(window, app):
     while close_counter < 300:
         if extended_fingers == 0:
             close_counter += 1
+            # close window on fist gesture
         else:
             height = leapModule.get_height()
             scaled_height = scale(height, 100, 400, 30, 90)
@@ -268,21 +277,21 @@ def nao_walk(window, app):
                     scale(scaled_angles1[1], -90, 90, 0, 99)
                 ]
 
+            # scale angles and height to output limits and output
             output_pitch = scaled_angles2[0]
             output_yaw = scaled_angles2[1]
-
             window.sldr_vertical.setValue(output_pitch)
             window.sldr_horiz.setValue(output_yaw)
-
             output_height = scale(scaled_height, 30, 90, 0, 99)
             window.sldr_height.setValue(output_height)
-
             app.processEvents()
 
+            # check whether pitch is outside of movement threshold (outside of -30 - 30 range)
             scaled_pitch = scale(scaled_angles2[0], 0, 99, -0.1, 0.1)
             if -0.03 < scaled_pitch < 0.03:
                 scaled_pitch = 0
 
+            # check whether yaw is outside of movement threshold
             if scaled_angles2[1] < 33:
                 rad_yaw = 20
             elif scaled_angles2[1] > 66:
@@ -290,28 +299,30 @@ def nao_walk(window, app):
             else:
                 rad_yaw = 0
 
+            # convert yaw to radians and send to nao
             rad_yaw *= 0.0174533
-
             naoModule.move_walk_turn(scaled_pitch, rad_yaw)
+            # record action
             local_action_list.append({"type": "walk", "parameters": [scaled_pitch, rad_yaw]})
 
         extended_fingers = leapModule.get_extended_fingers()
     naoModule.move_stop()
+    # stop nao moving when out of motion loop
     if len(local_action_list) > 0:
         record_action_list(local_action_list)
 
 
-# flag
+# register camera
 def nao_camera_register(widget):
     naoModule.initialise_video_proxy(widget)
 
 
-# flag
+# unregister camera
 def nao_camera_unregister(widget):
     naoModule.destroy_video_proxy(widget)
 
 
-# flag
+# move naos arm, hand is left or right
 def nao_arm(window, app, hand):
     hands = 0
 
@@ -319,10 +330,15 @@ def nao_arm(window, app, hand):
         hands = leapModule.count_hands()
 
     window.lbl_wait.hide()
+    window.lbl_sldr_vertical.setText("Pitch")
+    window.lbl_sldr_horiz.setText("Roll")
+    window.lbl_title.setText("Movement Status - Shoulder")
     app.processEvents()
+    # prepare window for motion
 
     joint_limits = naoModule.get_arm_joint_limits(hand)
     gesture = leapModule.get_hand_gesture()
+    # get joint movement limits and current hand gesture
     close_counter = 0
     local_action_list = []
 
@@ -330,6 +346,7 @@ def nao_arm(window, app, hand):
     while close_counter < 300:
         if gesture == 3:
             close_counter += 1
+            # close window when hand gesture is fist
         else:
             height = leapModule.get_height()
             scaled_height = scale(height, 100, 500, 30, 90)
@@ -344,7 +361,7 @@ def nao_arm(window, app, hand):
                     scale(angles[2], -scaled_height, scaled_height, -90, 90)   # roll
                 ]
 
-            if gesture == 0:
+            if gesture == 0:  # hand extended
                 # move shoulder
                 # scale angles according to nao arm limits
                 scaled_limits = \
@@ -368,7 +385,7 @@ def nao_arm(window, app, hand):
                 window.sldr_horiz.setValue(output_roll)
                 window.lbl_sldr_vertical.setText("Pitch")
                 window.lbl_sldr_horiz.setText("Roll")
-
+                window.lbl_title.setText("Movement Status - Shoulder")
                 app.processEvents()
 
                 scaled_radians = \
@@ -379,7 +396,7 @@ def nao_arm(window, app, hand):
 
                 naoModule.move_shoulder(scaled_radians, hand)
                 local_action_list.append({"type": hand + "_shoulder", "parameters": scaled_radians})
-            elif gesture == 1:
+            elif gesture == 1:  # middle three fingers extended
                 # move elbow
                 # scale angles according to nao arm limits
                 scaled_limits = \
@@ -403,6 +420,7 @@ def nao_arm(window, app, hand):
                 window.sldr_horiz.setValue(output_yaw)
                 window.lbl_sldr_vertical.setText("Roll")
                 window.lbl_sldr_horiz.setText("Yaw")
+                window.lbl_title.setText("Movement Status - Elbow")
 
                 app.processEvents()
 
@@ -414,7 +432,7 @@ def nao_arm(window, app, hand):
 
                 naoModule.move_elbow(scaled_radians, hand)
                 local_action_list.append({"type": hand + "_elbow", "parameters": scaled_radians})
-            elif gesture == 2:
+            elif gesture == 2: # outer two fingers extended
                 # move wrist
                 # scale angles according to nao arm limits
                 scaled_limits = \
@@ -432,6 +450,8 @@ def nao_arm(window, app, hand):
                 window.sldr_horiz.setValue(output_roll)
                 window.lbl_sldr_vertical.setText("N/A")
                 window.lbl_sldr_horiz.setText("Roll")
+                window.lbl_title.setText("Movement Status - Wrist")
+
 
                 app.processEvents()
 
@@ -451,18 +471,20 @@ def nao_arm(window, app, hand):
         record_action_list(local_action_list)
 
 
-# flag
+# add local action list to global action list
 def record_action_list(local_action_list):
     global action_list
     action_list.append(local_action_list)
 
 
-# flag
+# print action list to list widget
 def print_action_list(window):
     list_view = window.wgt_command_list
     list_view.clear()
     fps = leapModule.get_bandwidth_status()
     for local_action_list in action_list:
+        # output format - "movement type - duration"
+        # duration is estimated as number of actions recorded/leap motion fps
         if local_action_list[0]["type"] in ("left_shoulder", "left_elbow", "left_wrist"):
             output_string = "left arm - " + "{:.2f}".format(len(local_action_list)/fps) + "s"
         elif local_action_list[0]["type"] in ("right_shoulder", "right_elbow", "right_wrist"):
@@ -472,7 +494,7 @@ def print_action_list(window):
         list_view.addItem(output_string)
 
 
-# flag
+# parse individual action
 def parse_action(action, frame_rate):
     if action["type"] == "head":
         naoModule.rotate_head(action["parameters"])
@@ -497,9 +519,10 @@ def parse_action(action, frame_rate):
     else:
         print "WIP: " + action["type"]
     time.sleep(frame_rate)
+    # sleep required to force a delay in input being sent to nao
 
 
-# flag
+# play all actions
 def play_all_actions(app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
     naoModule.set_stiffness()
@@ -509,7 +532,7 @@ def play_all_actions(app):
             app.processEvents()
 
 
-# flag
+# play single action
 def play_single_action(selected_index, app):
     frame_rate = 1 / leapModule.get_bandwidth_status()
     naoModule.set_stiffness()
@@ -518,30 +541,35 @@ def play_single_action(selected_index, app):
         app.processEvents()
 
 
-# flag
+# move action up list
 def move_action_up(selected_index):
     action_list.insert(selected_index - 1, action_list.pop(selected_index))
 
 
-# flag
+# move action down list
 def move_action_down(selected_index):
     action_list.insert(selected_index + 1, action_list.pop(selected_index))
 
 
-# flag
+# delete action
 def delete_action(selected_index):
     action_list.pop(selected_index)
 
 
-# flag
+# load actions from json file
 def load_actions(data):
     import json
-    loaded_data = json.loads(data)
-    for local_action_list in loaded_data:
-        record_action_list(local_action_list)
+    try:
+        loaded_data = json.loads(data)
+        for local_action_list in loaded_data:
+            record_action_list(local_action_list)
+        return True
+    except Exception, e:
+        return False
 
 
-# flag
+# convert action list to json format
+
 def json_encode_actions():
     import json
     return json.JSONEncoder().encode(action_list)

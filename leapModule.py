@@ -1,5 +1,6 @@
 import sys
 
+# import nao sdk path, relative
 sys.path.insert(0, "LeapSDK/lib")
 sys.path.insert(0, "LeapSDK/lib/x86")
 
@@ -7,9 +8,10 @@ import Leap
 
 controller = Leap.Controller()
 last_frame = 0
+# last frame to prevent duplicate frames being processed
 
 
-# flag
+# return users hand rotation data
 def get_pitch_yaw_roll():
     global last_frame
     frame = controller.frame()
@@ -23,7 +25,7 @@ def get_pitch_yaw_roll():
     return [pitch, yaw, roll]
 
 
-# flag
+# return users hand height
 def get_height():
     frame = controller.frame()
     while frame.id < 0:
@@ -33,7 +35,7 @@ def get_height():
     return height
 
 
-# flag
+# return 1 if hands detected
 def count_hands():
     frame = controller.frame()
     while frame.id < 0:
@@ -44,62 +46,59 @@ def count_hands():
         return 1
 
 
-# flag
+# leap get service status
 def get_service_status():
     return controller.is_service_connected()
 
 
-# flag
+# leap get tracking status
 def get_tracking_status():
     return not controller.is_paused()
 
 
-# flag
+# leap get lighting status
 def get_lighting_status():
     device = controller.devices[0]
     return not device.is_lighting_bad
 
 
-# flag
+# leap get smudge status
 def get_smudge_status():
     device = controller.devices[0]
     return not device.is_smudged
 
 
-# flag
+# leap get bandwidth status (fps)
 def get_bandwidth_status():
     frame = controller.frame()
     return frame.current_frames_per_second
 
 
-# flag
+# leap get extended fingers
 def get_extended_fingers():
-    # global last_frame
-    # while last_frame == frame.id:
-        # frame = controller.frame()
-    # last_frame = frame.id
     frame = controller.frame()
     return len(frame.pointables.extended())
 
 
-# flag
+# Leap get hand gesture
 def get_hand_gesture():
     frame = controller.frame()
     pointables_list = frame.hands[0].pointables
     gesture = ""
+    # build string describing hand gesture in terms of fingers extended
     for pointable in pointables_list:
         if pointable.is_extended and pointable.is_valid:
-            gesture += "T"
+            gesture += "T"  # extended
         else:
-            gesture += "F"
-    if gesture == "TTTTT":
+            gesture += "F"  # not extended
+    if gesture == "TTTTT":  # fingers fully extended
         return 0
-    elif gesture == "FTTTF":
+    elif gesture == "FTTTF":  # middle three fingers extended
         return 1
-    elif gesture == "TFFFT":
+    elif gesture == "TFFFT":  # outer two fingers extended
         return 2
-    elif gesture == "FFFFF":
+    elif gesture == "FFFFF":  # no fingers extended
         return 3
     else:
-        return -1
+        return -1  # other
 

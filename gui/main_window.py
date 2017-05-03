@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Sun Apr 23 21:58:13 2017
+# Created: Tue May 02 19:53:40 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,7 +42,7 @@ class Ui_main_window(object):
         self.lbl_title.setAlignment(QtCore.Qt.AlignCenter)
         self.lbl_title.setObjectName(_fromUtf8("lbl_title"))
         self.group_movement = QtGui.QGroupBox(main_window)
-        self.group_movement.setGeometry(QtCore.QRect(20, 200, 151, 111))
+        self.group_movement.setGeometry(QtCore.QRect(20, 200, 151, 71))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.group_movement.setFont(font)
@@ -50,9 +50,6 @@ class Ui_main_window(object):
         self.btn_nao_walk = QtGui.QPushButton(self.group_movement)
         self.btn_nao_walk.setGeometry(QtCore.QRect(10, 30, 131, 31))
         self.btn_nao_walk.setObjectName(_fromUtf8("btn_nao_walk"))
-        self.btn_test = QtGui.QPushButton(self.group_movement)
-        self.btn_test.setGeometry(QtCore.QRect(10, 70, 131, 31))
-        self.btn_test.setObjectName(_fromUtf8("btn_test"))
         self.group_control = QtGui.QGroupBox(main_window)
         self.group_control.setGeometry(QtCore.QRect(190, 200, 151, 161))
         font = QtGui.QFont()
@@ -107,8 +104,7 @@ class Ui_main_window(object):
         main_window.setWindowTitle(_translate("main_window", "Nao Telepresence System - V1", None))
         self.lbl_title.setText(_translate("main_window", "Nao Telepresence System - V1", None))
         self.group_movement.setTitle(_translate("main_window", "Movement", None))
-        self.btn_nao_walk.setText(_translate("main_window", "Make Nao Walk", None))
-        self.btn_test.setText(_translate("main_window", "Test Button", None))
+        self.btn_nao_walk.setText(_translate("main_window", "Walk", None))
         self.group_control.setTitle(_translate("main_window", "Joint Control", None))
         self.btn_nao_head.setText(_translate("main_window", "Head", None))
         self.btn_nao_larm.setText(_translate("main_window", "Left Arm", None))
