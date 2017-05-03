@@ -1,0 +1,10 @@
+﻿  custLeap.cpp
+d:\work\fyp\sdk\projects\test2\leapmotionproject\leapmotionproject\custleap.cpp(21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  Compiling...
+  LeapMotionProject.cpp
+  Generating Code...
+  LeapMotionProject.vcxproj -> D:\Work\FYP\SDK\Projects\Test2\LeapMotionProject\Debug\LeapMotionProject.exe
+  LeapMotionProject.vcxproj -> D:\Work\FYP\SDK\Projects\Test2\LeapMotionProject\Debug\LeapMotionProject.pdb (Full PDB)
+  D:\Work\FYP\SDK\LeapDeveloperKit_3.2.0+45899_win\LeapSDK\lib\x86\Leap.dll
+  1 File(s) copied

@@ -1,0 +1,94 @@
+/*
+//header code
+class RollListener : public Listener
+{
+public:
+	virtual void onConnect(const Controller&);
+	virtual void onFrame(const Controller&);
+};
+
+void leapRPY(int direction);
+
+//source code
+void RollListener::onConnect(const Controller& controller)
+{
+	cout << "Connected" << endl;
+}
+
+void RollListener::onFrame(const Controller& controller)
+{
+	// Get the most recent frame and report some basic information
+	const Frame frame = controller.frame();
+	cout << "Frame id: " << frame.id()
+		<< ", hands: " << frame.hands().count()
+		<< ", extended fingers: " << frame.fingers().extended().count() << endl;
+
+	outfile << "Frame id, " << frame.id()
+		<< ", Hands, " << frame.hands().count()
+		<< ", Fingers, " << frame.fingers().extended().count();
+
+	//report information for each hands
+	HandList hands = frame.hands();
+	HandList::const_iterator h1;
+	for (h1 = hands.begin(); h1 != hands.end(); ++h1)
+	{
+		const Hand hand = *h1;
+		string handType = hand.isLeft() ? "Left" : "Right";
+
+		//basic hand info
+		cout << " Hand: " << handType
+			<< ", id: " << hand.id();
+
+		outfile << ", Hand, " << handType
+			<< ", HandID, " << hand.id();
+
+		// Calculate and report the hand's pitch, roll, and yaw angles
+		const Vector normal = hand.palmNormal();
+		const Vector direction = hand.direction();
+
+		cout << " roll: " << normal.roll() * RAD_TO_DEG << " degrees" << endl;
+
+		outfile << ", roll, " << normal.roll() * RAD_TO_DEG;
+	}
+
+	outfile << endl;
+}
+
+void leapRPY(int direction)
+{
+	Controller controller;
+
+	RollListener rListener;
+
+	//open log file
+	outfile.open("debug.dat");
+
+	cout << "Press enter to begin tracking" << endl;
+	cin.get();
+
+	switch (direction)
+	{
+	case 1:
+	{
+		controller.addListener(rListener);
+		cin.get();
+		controller.removeListener(rListener);
+		break;
+	}
+
+	case 2:
+	{
+		cout << "Pitch";
+		break;
+	}
+
+	case 3:
+	{
+		cout << "Yaw";
+		break;
+	}
+	}
+
+	outfile.close();
+}
+*/
